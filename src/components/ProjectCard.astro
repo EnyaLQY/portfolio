@@ -1,0 +1,27 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  category: string;
+  timeline?: string;
+  cover?: string;
+  summary?: string;
+}
+
+const { href, title, category, timeline, cover, summary } = Astro.props;
+---
+
+<a class="project-card" href={href}>
+  {
+    cover ? (
+      <img class="project-card__thumb" src={cover} alt={title} loading="lazy" />
+    ) : (
+      <div class="project-card__thumb" aria-hidden="true"></div>
+    )
+  }
+  <div class="project-card__body">
+    <p class="project-card__meta">{category}{timeline ? ` · ${timeline}` : ""}</p>
+    <h3 class="project-card__title">{title}</h3>
+    {summary ? <p class="project-summary">{summary}</p> : null}
+  </div>
+</a>

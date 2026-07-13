@@ -1,0 +1,29 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  filters: string;
+  previewHref?: string;
+  previewTitle?: string;
+}
+
+const { href, title, subtitle, image, filters, previewHref, previewTitle = "Preview" } = Astro.props;
+---
+
+<div class={`col-lg-4 col-md-6 portfolio-item ${filters}`}>
+  <div class="portfolio-img">
+    <a href={href}><img src={image} class="img-fluid" alt="" /></a>
+  </div>
+  <div class="portfolio-info">
+    <h4>{title}</h4>
+    <p>{subtitle}</p>
+    {
+      previewHref ? (
+        <a href={previewHref} data-gall="portfolioGallery" class="venobox preview-link" title={previewTitle}><i class="bx bx-plus"></i></a>
+      ) : null
+    }
+    <a href={href} class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+  </div>
+</div>

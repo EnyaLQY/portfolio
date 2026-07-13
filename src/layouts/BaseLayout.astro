@@ -1,0 +1,142 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Portfolio website" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="icon" href="/assets/img/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Satisfy"
+      rel="stylesheet"
+    />
+
+    <link href="/assets/vendor_new/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/vendor_new/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="/assets/vendor_new/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="/assets/vendor_new/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link href="/assets/vendor_new/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="/assets/css/style_new.css" rel="stylesheet" />
+
+    <style>
+      .hero-lite {
+        position: relative;
+        padding: 7rem 0 4rem;
+        background: radial-gradient(circle at 0% 0%, rgba(212, 88, 48, 0.24) 0%, rgba(255, 255, 255, 0) 38%),
+          radial-gradient(circle at 100% 100%, rgba(31, 105, 173, 0.2) 0%, rgba(255, 255, 255, 0) 36%);
+      }
+      .hero-lite h1 {
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        margin-bottom: 0.75rem;
+      }
+      .hero-lite p {
+        font-size: 1.05rem;
+        max-width: 780px;
+        color: #475569;
+        margin-bottom: 0;
+      }
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 0.8rem;
+        margin-top: 1.5rem;
+      }
+      .stat-item {
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 12px;
+        padding: 0.85rem 1rem;
+      }
+      .stat-item strong {
+        display: block;
+        font-size: 1.15rem;
+      }
+      .filter-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        margin-bottom: 1.2rem;
+      }
+      .filter-chip {
+        border: 1px solid rgba(15, 23, 42, 0.14);
+        border-radius: 999px;
+        padding: 0.35rem 0.8rem;
+        background: #ffffff;
+        color: #0f172a;
+        font-size: 0.9rem;
+      }
+      .filter-chip.active {
+        background: #0f172a;
+        color: #fff;
+        border-color: #0f172a;
+      }
+      .projects-grid {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+      .project-item.is-hidden {
+        display: none;
+      }
+      .project-card {
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+        color: inherit;
+      }
+      .project-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(15, 23, 42, 0.16);
+      }
+      .project-card__thumb {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
+      }
+      .project-card__body {
+        padding: 1rem 1rem 1.25rem;
+      }
+      .project-card__meta {
+        font-size: 0.9rem;
+        color: #6b7280;
+        margin-bottom: 0.35rem;
+      }
+      .project-card__title {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+      .project-summary {
+        color: #4b5563;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <slot />
+
+    <script is:inline src="/assets/vendor_new/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script is:inline src="/assets/vendor_new/glightbox/js/glightbox.min.js"></script>
+    <script is:inline src="/assets/vendor_new/purecounter/purecounter.js"></script>
+    <script is:inline src="/assets/vendor_new/swiper/swiper-bundle.min.js"></script>
+    <script is:inline src="/assets/vendor_new/waypoints/noframework.waypoints.js"></script>
+    <script is:inline src="/assets/js/main_new.js"></script>
+  </body>
+</html>

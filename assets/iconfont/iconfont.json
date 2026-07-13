@@ -1,0 +1,58 @@
+{
+  "id": "2525915",
+  "name": "portfolio",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "128976",
+      "name": "github",
+      "font_class": "github",
+      "unicode": "e7ab",
+      "unicode_decimal": 59307
+    },
+    {
+      "icon_id": "4546549",
+      "name": "lofter",
+      "font_class": "lofter",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "18253059",
+      "name": "Twitter",
+      "font_class": "tuite",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "18883808",
+      "name": "LinkedIN",
+      "font_class": "LinkedIN",
+      "unicode": "e951",
+      "unicode_decimal": 59729
+    },
+    {
+      "icon_id": "7239424",
+      "name": "code",
+      "font_class": "code",
+      "unicode": "e6e9",
+      "unicode_decimal": 59113
+    },
+    {
+      "icon_id": "11266205",
+      "name": "code2",
+      "font_class": "code1",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "15313236",
+      "name": "design",
+      "font_class": "design",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    }
+  ]
+}

@@ -1,0 +1,351 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project }
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const hasNativeBlocks = Boolean(project.data.blocks?.length);
+const heroImages = project.data.heroGallery?.length
+  ? project.data.heroGallery
+  : project.data.gallery?.length
+    ? project.data.gallery.map((src) => ({ src, alt: project.data.title }))
+    : project.data.cover
+      ? [{ src: project.data.cover, alt: project.data.title }]
+      : [];
+
+function extractSection(html, className) {
+  const regex = new RegExp(`<section[^>]*class="${className}"[^>]*>[\\s\\S]*?<\\/section>`, "i");
+  const match = html.match(regex);
+  return match ? match[0] : "";
+}
+
+function extractPortfolioDetails(html) {
+  const match = html.match(/<section id="portfolio-details" class="portfolio-details">[\s\S]*?<\/section>/i);
+  return match ? match[0] : "";
+}
+
+function normalizeLegacyHtml(html) {
+  return html
+    .replace(/href="assets\//g, 'href="/assets/')
+    .replace(/src="assets\//g, 'src="/assets/')
+    .replace(/href="index\.html#portfolio"/g, 'href="/portfolio/#portfolio"')
+    .replace(/href="index\.html#about"/g, 'href="/portfolio/#about"')
+    .replace(/href="index\.html#resume"/g, 'href="/portfolio/#resume"')
+    .replace(/href="index\.html#contact"/g, 'href="/portfolio/#contact"')
+    .replace(/href="index\.html"/g, 'href="/portfolio/"');
+}
+
+const legacyPath = project.data.legacyFile
+  ? path.join(process.cwd(), project.data.legacyFile)
+  : null;
+const legacyHtml = legacyPath && fs.existsSync(legacyPath) ? fs.readFileSync(legacyPath, "utf8") : "";
+const breadcrumbsHtml = normalizeLegacyHtml(extractSection(legacyHtml, "breadcrumbs"));
+const portfolioHtml = normalizeLegacyHtml(extractPortfolioDetails(legacyHtml));
+
+function getImageGridColumnClass(imageCount) {
+  if (imageCount >= 4) return "col-lg-3 col-md-6";
+  if (imageCount === 3) return "col-lg-4 col-md-6";
+  if (imageCount === 2) return "col-lg-6";
+  return "col-12";
+}
+
+function getTwoColumnClasses(layout = "1-1") {
+  if (layout === "1-2") {
+    return {
+      left: "col-lg-4",
+      right: "col-lg-8"
+    };
+  }
+
+  if (layout === "2-1") {
+    return {
+      left: "col-lg-8",
+      right: "col-lg-4"
+    };
+  }
+
+  return {
+    left: "col-lg-6",
+    right: "col-lg-6"
+  };
+}
+
+function getContentImageStyle(maxWidth) {
+  const resolvedMaxWidth = maxWidth || "88%";
+  return `width: 100%; max-width: ${resolvedMaxWidth}; margin: 0 auto; display: block;`;
+}
+
+function hasBlockTitle(block) {
+  return typeof block.title === "string" && block.title.trim().length > 0;
+}
+
+function normalizeSpacingValue(value) {
+  if (typeof value !== "string") return "";
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  // Accept plain numbers like "20" as pixels for convenience.
+  if (/^\d+(\.\d+)?$/.test(trimmed)) return `${trimmed}px`;
+  return trimmed;
+}
+
+function getBlockRowStyle(block, index) {
+  if (index === 0) return "margin-top: 50px;";
+  const explicitSpacing = normalizeSpacingValue(block.spaceBefore);
+  if (explicitSpacing && !hasBlockTitle(block)) return `margin-top: ${explicitSpacing};`;
+  return "margin-top: 0;";
+}
+
+function getBlockTitleStyle(block, index) {
+  return "margin-top: 0;";
+}
+
+function getBlockTitleSpacerStyle(block, index) {
+  if (!hasBlockTitle(block) || index === 0) return "height: 0;";
+  const explicitSpacing = normalizeSpacingValue(block.spaceBefore);
+  return `height: ${explicitSpacing || "120px"};`;
+}
+---
+
+<BaseLayout title={`${project.data.title} - Portfolio`} description={project.data.summary}>
+  <SiteHeader active="portfolio" />
+
+  <main id="main">
+    {
+      hasNativeBlocks ? (
+        <>
+          <section class="breadcrumbs">
+            <div class="container">
+              <div class="d-flex justify-content-between align-items-center">
+                <h2>Portfolio Details</h2>
+                <ol>
+                  <li><a href="/portfolio/">Home</a></li>
+                  <li><a href="/portfolio/#portfolio">Portfolio</a></li>
+                  <li>Portfolio Details - {project.data.title}</li>
+                </ol>
+              </div>
+            </div>
+          </section>
+
+          <section id="portfolio-details" class="portfolio-details">
+            <div class="container">
+              <div class="row gy-4">
+                <div class="col-lg-8">
+                  {
+                    heroImages.length ? (
+                      <div class="portfolio-details-slider swiper-container">
+                        <div class="swiper-wrapper align-items-center">
+                          {
+                            heroImages.map((image) => (
+                              <div class="swiper-slide">
+                                <img src={`/${image.src}`} alt={image.alt || project.data.title} />
+                              </div>
+                            ))
+                          }
+                        </div>
+                        <div class="swiper-pagination"></div>
+                      </div>
+                    ) : null
+                  }
+                </div>
+
+                <div class="col-lg-4">
+                  <br />
+                  <h1>{project.data.title}</h1>
+                  <br />
+
+                  <div class="portfolio-info">
+                    <h3>Project information</h3>
+                    <ul>
+                      <li><strong>Category</strong>: {project.data.category}</li>
+                      {project.data.timeline ? <li><strong>Timeline</strong>: {project.data.timeline}</li> : null}
+                      {project.data.client || project.data.info?.client ? <li><strong>Client</strong>: {project.data.client || project.data.info?.client}</li> : null}
+                      {project.data.teamMembers || project.data.info?.teamMembers ? <li><strong>Team members</strong>: {project.data.teamMembers || project.data.info?.teamMembers}</li> : null}
+                      {project.data.position || project.data.info?.role ? <li><strong>Position</strong>: {project.data.position || project.data.info?.role}</li> : null}
+                      {project.data.price || project.data.info?.price ? <li><strong>Price</strong>: {project.data.price || project.data.info?.price}</li> : null}
+                      {project.data.tools || project.data.info?.tools ? <li><strong>Developing Tools</strong>: {project.data.tools || project.data.info?.tools}</li> : null}
+                      {
+                        project.data.websiteUrl ? (
+                          <li>
+                            <strong>Website</strong>: <a href={project.data.websiteUrl} target="_blank" rel="noreferrer">{project.data.websiteLabel || project.data.websiteUrl}</a>
+                          </li>
+                        ) : null
+                      }
+                      {
+                        project.data.videoUrl ? (
+                          <li>
+                            <strong>Video Link</strong>: <a href={project.data.videoUrl} target="_blank" rel="noreferrer">{project.data.videoLabel || project.data.videoUrl}</a>
+                          </li>
+                        ) : null
+                      }
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {
+                project.data.blocks?.map((block, index) => (
+                  <div class="row" style={getBlockRowStyle(block, index)}>
+                    <div class="col-12 col-lg-10 offset-lg-1 descrip-section" style="padding-top: 0; padding-bottom: 0;">
+                      <div style={getBlockTitleSpacerStyle(block, index)}></div>
+                      {block.title ? <h2 style={getBlockTitleStyle(block, index)}>{block.title}</h2> : null}
+
+                      {
+                        block.type === "paragraph" ? <div set:html={block.text}></div> : null
+                      }
+
+                      {
+                        block.type === "image" ? (
+                          <div>
+                            <img
+                              src={`/${block.image.src}`}
+                              alt={block.image.alt || project.data.title}
+                              style={getContentImageStyle(block.image.maxWidth)}
+                            />
+                            {block.image.caption ? <p style="margin-top: 0.5rem; color: #666; text-align: center;">{block.image.caption}</p> : null}
+                          </div>
+                        ) : null
+                      }
+
+                      {
+                        block.type === "image-grid" ? (
+                          <div class="row" style="--bs-gutter-x: 2.75rem; --bs-gutter-y: 0;">
+                            {
+                              block.images.map((image) => (
+                                <div class={getImageGridColumnClass(block.images.length)}>
+                                  <img
+                                    src={`/${image.src}`}
+                                    alt={image.alt || project.data.title}
+                                    style={getContentImageStyle(image.maxWidth)}
+                                  />
+                                  {image.caption ? <p style="margin-top: 0.5rem; color: #666; text-align: center;">{image.caption}</p> : null}
+                                </div>
+                              ))
+                            }
+                          </div>
+                        ) : null
+                      }
+
+                      {
+                        block.type === "two-column" ? (
+                          <div class="row gy-4">
+                            <div class={getTwoColumnClasses(block.layout).left}>
+                              {
+                                  block.left.kind === "text" ? <div set:html={block.left.text}></div> : block.left.kind === "image-grid" ? (
+                                    <div class="row" style="--bs-gutter-x: 1.75rem; --bs-gutter-y: 0;">
+                                      {
+                                        block.left.images.map((image) => (
+                                          <div class={getImageGridColumnClass(block.left.images.length)}>
+                                            <img
+                                              src={`/${image.src}`}
+                                              alt={image.alt || project.data.title}
+                                              style={getContentImageStyle(image.maxWidth)}
+                                            />
+                                            {image.caption ? <p style="margin-top: 0.5rem; color: #666; text-align: center;">{image.caption}</p> : null}
+                                          </div>
+                                        ))
+                                      }
+                                    </div>
+                                  ) : (
+                                  <>
+                                    <img
+                                      src={`/${block.left.image.src}`}
+                                      alt={block.left.image.alt || project.data.title}
+                                        style={getContentImageStyle(block.left.image.maxWidth)}
+                                    />
+                                    {block.left.image.caption ? <p style="margin-top: 0.5rem; color: #666; text-align: center;">{block.left.image.caption}</p> : null}
+                                  </>
+                                )
+                              }
+                            </div>
+                            <div class={getTwoColumnClasses(block.layout).right}>
+                              {
+                                  block.right.kind === "text" ? <div set:html={block.right.text}></div> : block.right.kind === "image-grid" ? (
+                                    <div class="row" style="--bs-gutter-x: 1.75rem; --bs-gutter-y: 0;">
+                                      {
+                                        block.right.images.map((image) => (
+                                          <div class={getImageGridColumnClass(block.right.images.length)}>
+                                            <img
+                                              src={`/${image.src}`}
+                                              alt={image.alt || project.data.title}
+                                              style={getContentImageStyle(image.maxWidth)}
+                                            />
+                                            {image.caption ? <p style="margin-top: 0.5rem; color: #666; text-align: center;">{image.caption}</p> : null}
+                                          </div>
+                                        ))
+                                      }
+                                    </div>
+                                  ) : (
+                                  <>
+                                    <img
+                                      src={`/${block.right.image.src}`}
+                                      alt={block.right.image.alt || project.data.title}
+                                        style={getContentImageStyle(block.right.image.maxWidth)}
+                                    />
+                                    {block.right.image.caption ? <p style="margin-top: 0.5rem; color: #666; text-align: center;">{block.right.image.caption}</p> : null}
+                                  </>
+                                )
+                              }
+                            </div>
+                          </div>
+                        ) : null
+                      }
+
+                      {
+                        block.type === "quote" ? (
+                          <blockquote style="border-left: 4px solid #20b38e; padding-left: 1rem; color: #444;">
+                            <p>{block.text}</p>
+                            {block.author ? <cite>{block.author}</cite> : null}
+                          </blockquote>
+                        ) : null
+                      }
+
+                      {
+                        block.type === "embed" ? (
+                          <div style="display: flex; justify-content: center;">
+                            <iframe
+                              src={block.src}
+                              width={block.width || "1000"}
+                              height={block.height || "600"}
+                              style="border: 1px solid rgba(0, 0, 0, 0.1); max-width: 100%;"
+                              allowfullscreen
+                            ></iframe>
+                          </div>
+                        ) : null
+                      }
+                    </div>
+                  </div>
+                ))
+              }
+
+              <div class="row">
+                <div class="col-12 col-lg-10 offset-lg-1 descrip-section">
+                  <Content />
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      ) : (
+        <>
+          {breadcrumbsHtml ? <Fragment set:html={breadcrumbsHtml} /> : null}
+          {portfolioHtml ? <Fragment set:html={portfolioHtml} /> : null}
+        </>
+      )
+    }
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

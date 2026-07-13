@@ -1,0 +1,35 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import { getEntry } from "astro:content";
+import PortfolioItemCard from "../../components/PortfolioItemCard.astro";
+
+const legacyPath = path.join(process.cwd(), "public/portfolio/index.html");
+const legacyHtml = fs.readFileSync(legacyPath, "utf8");
+
+const portfolioMatch = legacyHtml.match(
+  /([\s\S]*?<div class="row portfolio-container">)([\s\S]*?)(\s*<\/div>\s*<\/div>\s*<\/section><!-- End My Portfolio Section -->[\s\S]*)/
+);
+
+if (!portfolioMatch) {
+  throw new Error("Unable to locate portfolio container in legacy homepage template.");
+}
+
+const beforePortfolio = portfolioMatch[1];
+const afterPortfolio = portfolioMatch[3];
+
+const homePortfolio = await getEntry("home", "portfolio");
+if (!homePortfolio) {
+  throw new Error("Missing home content entry: src/content/home/portfolio.md");
+}
+
+const portfolioCards = homePortfolio.data.cards;
+---
+
+<Fragment set:html={beforePortfolio} />
+
+{
+  portfolioCards.map((card) => <PortfolioItemCard {...card} />)
+}
+
+<Fragment set:html={afterPortfolio} />
