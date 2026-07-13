@@ -39,8 +39,8 @@ function extractPortfolioDetails(html) {
 
 function normalizeLegacyHtml(html) {
   return html
-    .replace(/href="assets\//g, 'href="/assets/')
-    .replace(/src="assets\//g, 'src="/assets/')
+    .replace(/href="assets\//g, 'href="assets/')
+    .replace(/src="assets\//g, 'src="assets/')
     .replace(/href="index\.html#portfolio"/g, 'href="/portfolio/#portfolio"')
     .replace(/href="index\.html#about"/g, 'href="/portfolio/#about"')
     .replace(/href="index\.html#resume"/g, 'href="/portfolio/#resume"')
