@@ -1,15 +1,16 @@
 ---
 const { active = "" } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <header id="header" class="fixed-top d-flex justify-content-center align-items-center">
   <nav id="navbar" class="navbar">
     <ul>
-      <li><a class={active === "home" ? "active" : undefined} href="/portfolio/">Home</a></li>
-      <li><a href="/portfolio/#about">About</a></li>
-      <li><a href="/portfolio/#resume">Resume</a></li>
-      <li><a class={active === "portfolio" ? "active" : undefined} href="/portfolio/#portfolio">Portfolio</a></li>
-      <li><a href="/portfolio/#contact">Contact</a></li>
+      <li><a class={active === "home" ? "active" : undefined} href={base}>Home</a></li>
+      <li><a href={`${base}#about`}>About</a></li>
+      <li><a href={`${base}#resume`}>Resume</a></li>
+      <li><a class={active === "portfolio" ? "active" : undefined} href={`${base}#portfolio`}>Portfolio</a></li>
+      <li><a href={`${base}#contact`}>Contact</a></li>
     </ul>
     <i class="bi bi-list mobile-nav-toggle"></i>
   </nav>

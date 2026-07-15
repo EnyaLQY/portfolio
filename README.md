@@ -20,6 +20,13 @@ npm install
 npm run dev
 ```
 
+## Dev with github page preview
+
+```bash
+$env:GITHUB_PAGES="true"    
+$env:BASE_PATH="/portfolio"
+```
+
 ## Build
 
 ```bash

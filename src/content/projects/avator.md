@@ -2,14 +2,14 @@
 title: "Personal illustration commission"
 category: "Illustration"
 timeline: "Varied for different requests"
-cover: "assets/img/portfolio/avator/5 - ideal 5.jpg"
+cover: "../portfolio/assets/img/portfolio/avator/5 - ideal 5.jpg"
 summary: "I drew personal avator and illustration commission online in my spare time."
 price: "120-350 RMB / pic"
 tools: "Photoshop, Procreate, PaintTool SAI"
 heroGallery:
-  - src: "assets/img/portfolio/avator/5 - ideal 5.jpg"
+  - src: "../portfolio/assets/img/portfolio/avator/5 - ideal 5.jpg"
     alt: "Personal illustration commission"
-  - src: "assets/img/portfolio/avator/IMG_1152.jpg"
+  - src: "../portfolio/assets/img/portfolio/avator/IMG_1152.jpg"
     alt: "Personal illustration commission"
 info:
   client: ""

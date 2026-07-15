@@ -5,6 +5,7 @@ interface Props {
 }
 
 const { title, description = "Portfolio website" } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
@@ -15,20 +16,20 @@ const { title, description = "Portfolio website" } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <link rel="icon" href="/assets/img/favicon.png" />
-    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
+    <link rel="icon" href={`${base}assets/img/favicon.png`} />
+    <link rel="apple-touch-icon" href={`${base}assets/img/apple-touch-icon.png`} />
 
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Satisfy"
       rel="stylesheet"
     />
 
-    <link href="/assets/vendor_new/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/assets/vendor_new/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <link href="/assets/vendor_new/boxicons/css/boxicons.min.css" rel="stylesheet" />
-    <link href="/assets/vendor_new/glightbox/css/glightbox.min.css" rel="stylesheet" />
-    <link href="/assets/vendor_new/swiper/swiper-bundle.min.css" rel="stylesheet" />
-    <link href="/assets/css/style_new.css" rel="stylesheet" />
+    <link href={`${base}assets/vendor_new/bootstrap/css/bootstrap.min.css`} rel="stylesheet" />
+    <link href={`${base}assets/vendor_new/bootstrap-icons/bootstrap-icons.css`} rel="stylesheet" />
+    <link href={`${base}assets/vendor_new/boxicons/css/boxicons.min.css`} rel="stylesheet" />
+    <link href={`${base}assets/vendor_new/glightbox/css/glightbox.min.css`} rel="stylesheet" />
+    <link href={`${base}assets/vendor_new/swiper/swiper-bundle.min.css`} rel="stylesheet" />
+    <link href={`${base}assets/css/style_new.css`} rel="stylesheet" />
 
     <style>
       .hero-lite {
@@ -132,11 +133,11 @@ const { title, description = "Portfolio website" } = Astro.props;
   <body>
     <slot />
 
-    <script is:inline src="/assets/vendor_new/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script is:inline src="/assets/vendor_new/glightbox/js/glightbox.min.js"></script>
-    <script is:inline src="/assets/vendor_new/purecounter/purecounter.js"></script>
-    <script is:inline src="/assets/vendor_new/swiper/swiper-bundle.min.js"></script>
-    <script is:inline src="/assets/vendor_new/waypoints/noframework.waypoints.js"></script>
-    <script is:inline src="/assets/js/main_new.js"></script>
+    <script is:inline src={`${base}assets/vendor_new/bootstrap/js/bootstrap.bundle.min.js`}></script>
+    <script is:inline src={`${base}assets/vendor_new/glightbox/js/glightbox.min.js`}></script>
+    <script is:inline src={`${base}assets/vendor_new/purecounter/purecounter.js`}></script>
+    <script is:inline src={`${base}assets/vendor_new/swiper/swiper-bundle.min.js`}></script>
+    <script is:inline src={`${base}assets/vendor_new/waypoints/noframework.waypoints.js`}></script>
+    <script is:inline src={`${base}assets/js/main_new.js`}></script>
   </body>
 </html>
