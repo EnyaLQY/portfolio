@@ -601,7 +601,7 @@ section {
 }
 
 .about .image {
-  background: url("../img/portrait.JPG") center bottom no-repeat;
+  background: url("../img/portrait.webp") center bottom no-repeat;
   background-size: cover;
   min-height: 500px;
 }
@@ -1334,7 +1334,7 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: url("../img/footer-bg.jpg") top center no-repeat;
+  background: url("../img/footer-bg.webp") top center no-repeat;
   background-size: cover;
   color: #fff;
   font-size: 14px;

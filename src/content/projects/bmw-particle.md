@@ -7,8 +7,8 @@ summary: "Integrating AIGC with BMW branding, we design customizable AI Particle
 heroGallery:
   - src: "assets/img/portfolio/bmw-particle/PROJECT1.png"
     alt: ""
-  # - src: "assets/img/portfolio/xmp/3 - XMP2.png"
-  #   alt: "Data visualization screen"
+  - src: "assets/img/portfolio/bmw-particle/PARTICLE3.png"
+    alt: ""
 info:
   role: "UX Designer & Prototyper"
   tools: "Figma, ProtoPie, Coding (Python)"
@@ -16,19 +16,26 @@ blocks:
   - type: "paragraph"
     title: "Project Background"
     text: "As major automotive OEMs rush to launch in-vehicle generative AI features, product functions have become highly homogeneous, making brand differentiation difficult. To build exclusive differentiated experiences and fully convey BMW’s brand essence, we integrated AIGC generation capabilities with existing widget systems to design a new customizable AI component solution with consistent visual and interactive styling."
-  - type: "two-column"
+  - type: "paragraph"
     title: "Design Strategies"
-    left:
-      kind: "text"
-      text: "During the design of AI-generated Particle and their configuration pages, we encountered a critical challenge: <br><br><ul><li>Conducting early-stage usability testing with real users and communicating complex interaction logic to stakeholders before development began.</li><li>Due to the project’s dynamic generation and multi-state logic, traditional tools like Figma fail to deliver product-fidelity interactive validation. </li></ul>Therefore, I adopted ProtoPie as a rapid prototyping tool to bridge the experience gap between design and development."
-    right:
-      kind: "image"
-      image:
-        src: "assets/img/portfolio/bmw-particle/mdp.png"
-        alt: "Interaction Diagram"
-        caption: "Different interaction approches"
+    text: "During the design of AI-generated Particle and their configuration pages, we encountered a critical challenge: <br><br><ul><li>Conducting early-stage usability testing with real users and communicating complex interaction logic to stakeholders before development began.</li><li>Due to the project’s dynamic generation and multi-state logic, traditional tools like Figma fail to deliver product-fidelity interactive validation. </li></ul>Therefore, I adopted ProtoPie as a rapid prototyping tool to bridge the experience gap between design and development."
+  # - type: "two-column"
+  #   title: "Design Strategies"
+  #   left:
+  #     kind: "text"
+  #     text: "During the design of AI-generated Particle and their configuration pages, we encountered a critical challenge: <br><br><ul><li>Conducting early-stage usability testing with real users and communicating complex interaction logic to stakeholders before development began.</li><li>Due to the project’s dynamic generation and multi-state logic, traditional tools like Figma fail to deliver product-fidelity interactive validation. </li></ul>Therefore, I adopted ProtoPie as a rapid prototyping tool to bridge the experience gap between design and development."
+  #   right:
+  #     kind: "image"
+  #     image:
+  #       src: "assets/img/portfolio/bmw-particle/mdp.png"
+  #       alt: "Interaction Diagram"
+  #       caption: "Different interaction approches"
   - type: "paragraph"
     text: "While conventional ProtoPie Message-Driven Prototype (MDP) workflows work for general cases, they suffer from performance degradation and instability when handling heavy visual assets, intensive data computation, and complex interactions, limiting scalability and maintainability. To solve these issues, I optimized the existing workflow with a Data-based MDP structure. By applying database-driven data management to centralize and structure states and data, this approach reduces interface coupling, modularizes functional logic, and maintains stable prototype performance for large-scale, complex interactive scenarios."
+  - type: "image"
+    image:
+      src: "assets/img/portfolio/bmw-particle/background.png"
+      alt: ""
   - type: "paragraph"
     title: "GenAI UX Design"
     text: "To address two key design trade-offs, I prioritized user experience as the primary evaluation metric. I conducted multi-dimensional assessments covering user journeys, visual hierarchy, cross-device compatibility and engineering reusability, delivered multiple alternative solutions for cross-team reviews, balanced experience goals against implementation costs, and aligned designers and developers on a final actionable solution.<br><br>"
