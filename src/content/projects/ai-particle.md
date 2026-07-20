@@ -97,6 +97,6 @@ blocks:
   - type: "paragraph"
     text: "<br>These outcomes confirm that the design delivers intuitive, viable experiences amid complex interactive and generative scenarios and provides compelling empirical support for future product development. Importantly, many such issues would remain undiscovered if relying solely on static Figma prototypes, which highlights the necessity of high-fidelity interactive prototypes for early design validation."
   - type: "paragraph"
-    text: "<br><strong>Disclaimer:</strong> All materials are presented solely to demonstrate design thinking and process, and do not represent the actual product."
+    text: "<br><br><br><strong>Disclaimer:</strong> All materials are presented solely to demonstrate design thinking and process, and do not represent the actual product."
 featured: true
 ---

@@ -1,23 +1,29 @@
 ---
 title: "Portfolio Home Cards"
 cards:
-  - href: "../portfolio/projects/bmw-particle/"
+  - href: "../portfolio/projects/ai-particle/"
     title: "BMW - AI Particle Design"
     subtitle: "UX Design & Prototyping"
     image: "../portfolio/assets/img/portfolio/bmw-particle/PROJECT1.png"
     filters: "filter-design"
     
-  - href: "../portfolio/projects/bmw-launcher/"
+  - href: "../portfolio/projects/ai-launcher/"
     title: "BMW - AI Agent-Based Launcher"
     subtitle: "UX Design & Prototyping"
     image: "../portfolio/assets/img/portfolio/bmw-launcher/PROJECT2.png"
+    filters: "filter-design"
+
+  - href: "../portfolio/projects/ai-movie/"
+    title: "BMW - AI Agent-Based Launcher"
+    subtitle: "UX Design & Prototyping"
+    image: "../portfolio/assets/img/portfolio/bmw-movie/PROJECT3.png"
     filters: "filter-design"
 
   - href: "../portfolio/projects/xmp/"
     title: "Xenophobia Meter Project Website"
     subtitle: "MPS project with Cornell Law School Partnership"
     image: "../portfolio/assets/img/portfolio/xmp/Mockup 02.png"
-    filters: "filter-design filter-app"
+    filters: "filter-app"
 
   # - href: "../portfolio/projects/weather/"
   #   title: "Project - YourWeather"
@@ -35,19 +41,13 @@ cards:
     title: "Project - iDeal Website"
     subtitle: "UIUX Design/Web Development"
     image: "../portfolio/assets/img/portfolio/ideal/unnamed.png"
-    filters: "filter-design filter-app"
+    filters: "filter-app"
 
   # - href: "../portfolio/projects/kamino/"
   #   title: "Project - KaminoAuto Website"
   #   subtitle: "UIUX Design/Web Development"
   #   image: "../portfolio/assets/img/portfolio/kamino/kamino1.png"
   #   filters: "filter-design filter-app"
-  
-  - href: "../portfolio/projects/bobing/"
-    title: "Project - VR Bo Bing"
-    subtitle: "AR/VR Design"
-    image: "../portfolio/assets/img/portfolio/vr/vr1.png"
-    filters: "filter-design"
 
   - href: "../portfolio/projects/avator/"
     title: "Illustrations"
@@ -57,5 +57,9 @@ cards:
     previewHref: "../portfolio/assets/img/portfolio/avator/portfolio_avator.JPG"
     previewTitle: "Other 1"
 
-
+  - href: "../portfolio/projects/bobing/"
+    title: "Project - VR Bo Bing"
+    subtitle: "AR/VR Design"
+    image: "../portfolio/assets/img/portfolio/vr/vr1.png"
+    filters: "filter-design"
 ---

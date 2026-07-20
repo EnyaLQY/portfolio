@@ -59,6 +59,6 @@ blocks:
   - type: "paragraph"
     text: "The final high-fidelity prototype was presented to cross-functional stakeholders across departments and widely well-received. This deliverable provides solid conceptual and technical validation, laying a robust foundation for the project's next phase. It also offers a tangible reference for broader exploration of intent-driven in-car interaction — demonstrating how AI Agents can reshape traditional homepage information architecture and redefine user-system engagement patterns."
   - type: "paragraph"
-    text: "<br><strong>Disclaimer:</strong> All materials are presented solely to demonstrate design thinking and process, and do not represent the actual product."
+    text: "<br><br><br><strong>Disclaimer:</strong> All materials are presented solely to demonstrate design thinking and process, and do not represent the actual product."
 featured: true
 ---
