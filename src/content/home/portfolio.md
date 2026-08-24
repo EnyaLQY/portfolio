@@ -14,9 +14,15 @@ cards:
     filters: "filter-design"
 
   - href: "../portfolio/projects/ai-movie/"
-    title: "BMW - AI Agent-Based Launcher"
+    title: "BMW - Gen-AI Festive Movie"
     subtitle: "UX Design & Prototyping"
     image: "../portfolio/assets/img/portfolio/bmw-movie/PROJECT3.png"
+    filters: "filter-design"
+
+  - href: "../portfolio/projects/bmw-mbe/"
+    title: "BMW - MBE Hardware Prototyping"
+    subtitle: "UX Design & Prototyping"
+    image: "../portfolio/assets/img/portfolio/bmw-mbe/PROJECT4.png"
     filters: "filter-design"
 
   - href: "../portfolio/projects/xmp/"
