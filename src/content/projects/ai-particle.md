@@ -15,10 +15,10 @@ info:
 blocks:
   - type: "paragraph"
     title: "Project Background"
-    text: "As major automotive OEMs rush to launch in-vehicle generative AI features, product functions have become highly homogeneous, making brand differentiation difficult. To build exclusive differentiated experiences and fully convey BMW’s brand essence, we integrated AIGC generation capabilities with existing widget systems to design a new customizable AI component solution with consistent visual and interactive styling."
+    text: "<br><h5>When every automotive brand starts adding AI, how can the experience still feel distinctly BMW?</h5><br>As major automotive OEMs rush to launch in-vehicle generative AI features, product functions have become highly homogeneous, making brand differentiation difficult. To build exclusive differentiated experiences and fully convey BMW’s brand essence, we integrated AIGC generation capabilities with existing widget systems to design a new customizable AI component solution with consistent visual and interactive styling.<br><br>The goal was not just to demonstrate what AI could generate, but to explore how users could create, organize, and interact with dynamic AI-generated content within a familiar BMW experience."
   - type: "paragraph"
     title: "Design Strategies"
-    text: "During the design of AI-generated Particle and their configuration pages, we encountered a critical challenge: <br><br><ul><li>Conducting early-stage usability testing with real users and communicating complex interaction logic to stakeholders before development began.</li><li>Due to the project’s dynamic generation and multi-state logic, traditional tools like Figma fail to deliver product-fidelity interactive validation. </li></ul>Therefore, I adopted ProtoPie as a rapid prototyping tool to bridge the experience gap between design and development."
+    text: "With the interaction framework already established, I focused on how AI-generated Particles should be organized and presented within the existing HMI system. The key question was not simply where to place a new AI feature, but: <strong>How should users understand, access, and manage a growing collection of AI-generated content without making the interface feel overwhelming?</strong><p>Rather than introducing GenAI as a completely separate new App, we considered how it could extend the existing information hierarchy in Partivle configuration page while still giving users a clear mental model of what they could create and customize.</p> Unlike traditional fixed components, Particles could have different sizes, content types, and visual characteristics. We therefore explored how the layout could accommodate this flexibility while maintaining a consistent visual hierarchy. We considered factors such as:<ul><br><li>Component size and hierarchy</li><li>Available screen space</li><li>Relationship between AI-generated and existing content</li><li>Visual consistency with the BMW design system</li><li>How the layout could scale as more content was introduced</li></ul>"
   # - type: "two-column"
   #   title: "Design Strategies"
   #   left:
@@ -31,33 +31,33 @@ blocks:
   #       alt: "Interaction Diagram"
   #       caption: "Different interaction approches"
   - type: "paragraph"
-    text: "While conventional ProtoPie Message-Driven Prototype (MDP) workflows work for general cases, they suffer from performance degradation and instability when handling heavy visual assets, intensive data computation, and complex interactions, limiting scalability and maintainability. To solve these issues, I optimized the existing workflow with a Data-based MDP structure. By applying database-driven data management to centralize and structure states and data, this approach reduces interface coupling, modularizes functional logic, and maintains stable prototype performance for large-scale, complex interactive scenarios."
-  - type: "image"
-    image:
-      src: "assets/img/portfolio/bmw-particle/background.png"
-      alt: ""
-  - type: "paragraph"
     title: "GenAI UX Design"
-    text: "To address two key design trade-offs, I prioritized user experience as the primary evaluation metric. I conducted multi-dimensional assessments covering user journeys, visual hierarchy, cross-device compatibility and engineering reusability, delivered multiple alternative solutions for cross-team reviews, balanced experience goals against implementation costs, and aligned designers and developers on a final actionable solution.<br><br>"
+    text: "At this stage, the challenge was no longer simply defining what the interface should look like. We had to make several decisions where user experience, visual hierarchy, and engineering constraints pulled in different directions. I treated the user experience as the primary evaluation criterion, while also considering implementation cost, reusability, and long-term scalability. For each decision, I explored alternative solutions, mapped their impact on the user journey and interface hierarchy, and brought the options into cross-functional discussions with designers and developers. Then two discussions became particularly important."
   - type: "paragraph"
-    text: "<br><h5>Discussion 1: Hierarchy of GenAI entry</h5><p>From an engineering perspective, the development team favoured the 1st layer entry to reduce implementation costs. From a UX perspective, I advocated placing the feature within the 2nd layer. Although it moderately increases development workload, this approach avoids UI clutter caused by scattered functions and optimises information hierarchy. When large quantities of generated components are available, categorised organisation simplifies user search paths and yields better long-term experience.</p>"
+    text: "<br><h5>Discussion 1: Where Should Users Enter GenAI?</h5><p>We explored two options for introducing GenAI into the Launcher. The development team initially preferred a <strong>first-level entry</strong> because a new second-level entry would require additional implementation effort within a tight demo timeline. From a UX perspective, I advocated for a <strong>second-level entry</strong> because it provided a clearer information hierarchy and a more scalable structure as GenAI capabilities expanded. <br><br>Rather than treating this as a UX-versus-engineering conflict, I worked with the development team to understand the underlying constraint. We found that the main issue was delivery time, rather than technical feasibility. I then discussed the situation with my team lead and talked with development team together to find a solution. After discussion, we proposed focusing the initial demo on one or two representative use cases instead of implementing the full feature set.<br><br>This allowed us to preserve the UX direction while adapting the implementation scope—maintaining a clear, scalable experience without sacrificing the timeline needed to validate the concept in a real vehicle.</p>"
   - type: "image"
     image:
       src: "assets/img/portfolio/bmw-particle/layer.png"
       alt: ""
   - type: "paragraph"
-    text: "<br><br><h5>Discussion 2: Layout for S/L sizes Particles</h5><p>Following the decision to adopt a 2nd layer entry, two layout approaches show notable differences in experience and resource consumption. A unified entry storing mixed S/L components offers users multiple sizing options in one conversation, yet consumes more Tokens. My preferred solution is separate dedicated entries for each size. This structure clarifies information hierarchy with intuitive user goals and cleaner visual. It also enables modular logic for development, improves component reusability and reduces maintenance overhead for future iterations.</p>"
+    text: "<br><br><h5>Discussion 2: How Should S/L Particles Be Organized?</h5><p>We explored two approaches. The first was <strong>a unified entry</strong>, where users could generate both S and L Particles within the same conversation. This provided flexibility and allowed users to explore different formats in one place, but also introduced more mixed content and increased the generation resources required by the system. <br><br>The second approach was to create <strong>dedicated entries for each Particle size</strong>. I preferred the second direction because it gave each entry a clearer purpose and made the user's intention more explicit. Instead of asking users to make an additional decision about size within the generation flow, the structure allowed the interface to communicate the available options more clearly from the beginning. It also created a more modular system for development, allowing different Particle types to evolve independently while keeping the underlying interaction logic reusable. It provided a cleaner information hierarchy while creating a more maintainable foundation for future AI-generated components.</p>"
   - type: "image"
     image:
       src: "assets/img/portfolio/bmw-particle/layout.png"
       alt: ""  
   - type: "paragraph"
-    title: "Interaction Roadmap"
-    text: "The interaction system adopts two core operation modes — tap and drag — serving different scenarios with independent logic and feedback rules."
+    title: "Prototyping Roadmap"
+    text: "At the same time, I started preparing for hi-fi prototype. While conventional ProtoPie Message-Driven Prototype (MDP) workflows work for general cases, they suffer from performance degradation and instability when handling heavy visual assets, intensive data computation, and complex interactions, limiting scalability and maintainability. To solve these issues, I optimized the existing workflow with a Data-based MDP structure. By applying database-driven data management to centralize and structure states and data, this approach reduces interface coupling, modularizes functional logic, and maintains stable prototype performance for large-scale, complex interactive scenarios."
+  - type: "image"
+    image:
+      src: "assets/img/portfolio/bmw-particle/background.png"
+      alt: ""
+  - type: "paragraph"
+    text: "<p>The interaction system adopts two core operation modes — tap and drag — serving different scenarios with independent logic and feedback rules.</p>"
   - type: "two-column"
     left:
       kind: "text"
-      text: "<p><strong>Tap mode</strong> is designed for regular selection and components with secondary menus. <br><br>Upon tapping, the system checks slot availability: it auto-fills components sequentially for empty slots, and prompts users for replacement or removal when slots are full. This system-centric mode delivers efficient and consistent daily operations.</p>"
+      text: "<br><strong>Tap mode</strong> is designed for regular selection and components with secondary menus. <br><br>Upon tapping, the system checks slot availability: it auto-fills components sequentially for empty slots, and prompts users for replacement or removal when slots are full. This system-centric mode delivers efficient and consistent daily operations."
     right:
       kind: "image"
       image:
@@ -67,7 +67,7 @@ blocks:
   - type: "two-column"
     left:
       kind: "text"
-      text: "<p><strong>Drag mode</strong> provides flexible spatial adjustment while supporting secondary menus. <br><br>It tracks drag trajectories in real time and identifies valid drop areas on release, triggering snap placement, content replacement or layout rearrangement accordingly. This mode focuses on precise spatial control and responsive real-time feedback.</p>"
+      text: "<br><strong>Drag mode</strong> provides flexible spatial adjustment while supporting secondary menus. <br><br>It tracks drag trajectories in real time and identifies valid drop areas on release, triggering snap placement, content replacement or layout rearrangement accordingly. This mode focuses on precise spatial control and responsive real-time feedback."
     right:
       kind: "image"
       image:
