@@ -16,9 +16,17 @@ blocks:
   - type: "paragraph"
     title: "Project Background"
     text: "<br><h5>When every automotive brand starts adding AI, how can the experience still feel distinctly BMW?</h5><br>As major automotive OEMs rush to launch in-vehicle generative AI features, product functions have become highly homogeneous, making brand differentiation difficult. To build exclusive differentiated experiences and fully convey BMW’s brand essence, we integrated AIGC generation capabilities with existing widget systems to design a new customizable AI component solution with consistent visual and interactive styling.<br><br>The goal was not just to demonstrate what AI could generate, but to explore how users could create, organize, and interact with dynamic AI-generated content within a familiar BMW experience."
-  - type: "paragraph"
+  - type: "two-column"
     title: "Design Strategies"
-    text: "With the interaction framework already established, I focused on how AI-generated Particles should be organized and presented within the existing HMI system. The key question was not simply where to place a new AI feature, but: <strong>How should users understand, access, and manage a growing collection of AI-generated content without making the interface feel overwhelming?</strong><p>Rather than introducing GenAI as a completely separate new App, we considered how it could extend the existing information hierarchy in Partivle configuration page while still giving users a clear mental model of what they could create and customize.</p> Unlike traditional fixed components, Particles could have different sizes, content types, and visual characteristics. We therefore explored how the layout could accommodate this flexibility while maintaining a consistent visual hierarchy. We considered factors such as:<ul><br><li>Component size and hierarchy</li><li>Available screen space</li><li>Relationship between AI-generated and existing content</li><li>Visual consistency with the BMW design system</li><li>How the layout could scale as more content was introduced</li></ul>"
+    left:
+      kind: "text"
+      text: "With the interaction framework already established, I focused on how AI-generated particles should be organized and presented within the existing HMI system. The key question was not simply where to place a new AI feature, but: <strong>How should users understand, access, and manage a growing collection of AI-generated content without making the interface feel overwhelming?</strong><p>Rather than introducing GenAI as a completely separate new App, we considered how it could extend the existing information hierarchy in Particle configuration page while still giving users a clear mental model of what they could create and customize.</p> Unlike pre-defined fixed components, GenAI particles could have different sizes, content types, and visual characteristics. We therefore explored how the layout could accommodate this flexibility while maintaining a consistent visual hierarchy. We considered factors such as:<ul><br><li>Component size and hierarchy</li><li>Relationship between AI-generated and existing content</li><li>Visual consistency with the BMW design system</li><li>How the layout could scale as more content was introduced</li></ul>"
+    right:
+      kind: "image"
+      image:
+        src: "assets/img/portfolio/bmw-particle/linghuo.jpg.webp"
+        alt: ""
+        caption: "Existing Particle Configuration Page"
   # - type: "two-column"
   #   title: "Design Strategies"
   #   left:
@@ -96,6 +104,12 @@ blocks:
       alt: ""  
   - type: "paragraph"
     text: "<br>These outcomes confirm that the design delivers intuitive, viable experiences amid complex interactive and generative scenarios and provides compelling empirical support for future product development. Importantly, many such issues would remain undiscovered if relying solely on static Figma prototypes, which highlights the necessity of high-fidelity interactive prototypes for early design validation."
+  - type: embed
+    title: "Official Trailer for GenAI Particle"
+    src: https://www.youtube.com/embed/F7pbGJCueg4
+    width: "80%"
+    height: "400"
+    caption: "iX3 captures a horse with the in-car camera and transforms the image into an AI-generated particle"
   - type: "paragraph"
     text: "<br><br><br><strong>Disclaimer:</strong> All materials are presented solely to demonstrate design thinking and process, and do not represent the actual product."
 featured: true

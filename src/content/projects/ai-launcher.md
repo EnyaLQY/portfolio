@@ -61,7 +61,7 @@ blocks:
   - type: embed
     title: "Prototype Demo Video"
     src: https://www.youtube.com/embed/SBkUDjApTgA
-    caption: "Demo Video with Voice Command"
+    caption: "AI-driven widget layouts dynamically selected based on user intent from voice commands"
     width: "80%"
     height: "400"
   - type: "paragraph"

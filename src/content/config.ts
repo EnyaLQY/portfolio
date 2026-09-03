@@ -58,10 +58,10 @@ const projectBlock = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("embed"),
     title: z.string().optional(),
-    spaceBefore: z.string().optional(),
     src: z.string(),
     width: z.string().optional(),
-    height: z.string().optional()
+    height: z.string().optional(),
+    caption: z.string().optional(),
   })
 ]);
 
