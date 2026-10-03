@@ -1,10 +1,9 @@
 ---
-import fs from "node:fs";
-import path from "node:path";
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
+import RichText from "../../components/RichText.astro";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -17,8 +16,9 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await render(project);
 const baseUrl = import.meta.env.BASE_URL;
+const blocks = project.data.blocks ?? [];
+const hasSupplementaryContent = Boolean(project.body?.trim());
 
-const hasNativeBlocks = Boolean(project.data.blocks?.length);
 const heroImages = project.data.heroGallery?.length
   ? project.data.heroGallery
   : project.data.gallery?.length
@@ -26,35 +26,6 @@ const heroImages = project.data.heroGallery?.length
     : project.data.cover
       ? [{ src: project.data.cover, alt: project.data.title }]
       : [];
-
-function extractSection(html, className) {
-  const regex = new RegExp(`<section[^>]*class="${className}"[^>]*>[\s\S]*?<\/section>`, "i");
-  const match = html.match(regex);
-  return match ? match[0] : "";
-}
-
-function extractPortfolioDetails(html) {
-  const match = html.match(/<section id="portfolio-details" class="portfolio-details">[\s\S]*?<\/section>/i);
-  return match ? match[0] : "";
-}
-
-function normalizeLegacyHtml(html) {
-  return html
-    .replace(/href="assets\//g, `href="${baseUrl}assets/`)
-    .replace(/src="assets\//g, `src="${baseUrl}assets/`)
-    .replace(/href="index\.html#portfolio"/g, `href="${baseUrl}#portfolio"`)
-    .replace(/href="index\.html#about"/g, `href="${baseUrl}#about"`)
-    .replace(/href="index\.html#resume"/g, `href="${baseUrl}#resume"`)
-    .replace(/href="index\.html#contact"/g, `href="${baseUrl}#contact"`)
-    .replace(/href="index\.html"/g, `href="${baseUrl}"`);
-}
-
-const legacyPath = project.data.legacyFile
-  ? path.join(process.cwd(), project.data.legacyFile)
-  : null;
-const legacyHtml = legacyPath && fs.existsSync(legacyPath) ? fs.readFileSync(legacyPath, "utf8") : "";
-const breadcrumbsHtml = normalizeLegacyHtml(extractSection(legacyHtml, "breadcrumbs"));
-const portfolioHtml = normalizeLegacyHtml(extractPortfolioDetails(legacyHtml));
 
 function getImageGridColumnClass(imageCount) {
   if (imageCount >= 4) return "col-lg-3 col-md-6";
@@ -75,36 +46,37 @@ function getTwoColumnClasses(layout = "1-1") {
 
 function getContentImageStyle(maxWidth) {
   const resolvedMaxWidth = maxWidth || "88%";
-  return `width: 100%; max-width: ${resolvedMaxWidth}; margin: 1rem auto 0; display: block; cursor: zoom-in;`;
+  return `width: 100%; max-width: ${resolvedMaxWidth}; margin: 0 auto; display: block; cursor: zoom-in;`;
 }
 
 function hasBlockTitle(block) {
   return typeof block.title === "string" && block.title.trim().length > 0;
 }
 
-function normalizeSpacingValue(value) {
-  if (typeof value !== "string") return "";
-  const trimmed = value.trim();
-  if (!trimmed) return "";
-  if (/^\d+(\.\d+)?$/.test(trimmed)) return `${trimmed}px`;
-  return trimmed;
+function getBlockProse(block) {
+  if (block.type === "paragraph" || block.type === "quote") {
+    return [...(block.paragraphs ?? []), block.text ?? ""];
+  }
+
+  if (block.type === "two-column") {
+    return [block.left, block.right]
+      .filter((column) => column.kind === "text")
+      .flatMap((column) => [...(column.paragraphs ?? []), column.text ?? ""]);
+  }
+
+  return [];
 }
 
-function getBlockRowStyle(block, index) {
-  if (index === 0) return "margin-top: 50px;";
-  const explicitSpacing = normalizeSpacingValue(block.spaceBefore);
-  if (explicitSpacing && !hasBlockTitle(block)) return `margin-top: ${explicitSpacing};`;
-  return "margin-top: 0;";
+function hasSubheading(block) {
+  return getBlockProse(block).some((text) => /<h5\b/i.test(text));
 }
 
-function getBlockTitleStyle(block, index) {
-  return "margin-top: 0;";
+function isMediaBlock(block) {
+  return block.type === "image" || block.type === "image-grid";
 }
 
-function getBlockTitleSpacerStyle(block, index) {
-  if (!hasBlockTitle(block) || index === 0) return "height: 0;";
-  const explicitSpacing = normalizeSpacingValue(block.spaceBefore);
-  return `height: ${explicitSpacing || "120px"};`;
+function isDisclaimer(block) {
+  return getBlockProse(block).some((text) => /<strong>\s*Disclaimer:\s*<\/strong>/i.test(text));
 }
 
 function getAssetUrl(src) {
@@ -116,9 +88,7 @@ function getAssetUrl(src) {
   <SiteHeader active="portfolio" />
 
   <main id="main">
-    {
-      hasNativeBlocks ? (
-        <>
+    <>
           <section class="breadcrumbs">
             <div class="container">
               <div class="d-flex justify-content-between align-items-center">
@@ -189,13 +159,14 @@ function getAssetUrl(src) {
               </div>
 
               {
-                project.data.blocks?.map((block, index) => (
-                  <div class="row" style={getBlockRowStyle(block, index)}>
+                blocks.map((block, index) => (
+                  <div
+                    class={`row project-block${index === 0 ? " project-block--first" : ""}${index > 0 ? " project-block--after" : ""}${isMediaBlock(block) ? " project-block--media" : ""}${block.type === "embed" ? " project-block--embed" : ""}${hasBlockTitle(block) && index > 0 ? " project-block--section" : ""}${index > 0 && isMediaBlock(blocks[index - 1]) && hasSubheading(block) ? " project-block--subheading-after-media" : ""}${isDisclaimer(block) ? " project-block--disclaimer" : ""}`}
+                  >
                     <div class="col-12 col-lg-10 offset-lg-1 descrip-section" style="padding-top: 0; padding-bottom: 0;">
-                      <div style={getBlockTitleSpacerStyle(block, index)}></div>
-                      {block.title ? <h2 style={getBlockTitleStyle(block, index)}>{block.title}</h2> : null}
+                      {block.title ? <h2 class="project-block__title">{block.title}</h2> : null}
 
-                      {block.type === "paragraph" ? <div set:html={block.text}></div> : null}
+                      {block.type === "paragraph" ? <RichText text={block.text} paragraphs={block.paragraphs} /> : null}
 
                       {
                         block.type === "image" ? (
@@ -207,7 +178,7 @@ function getAssetUrl(src) {
                                 style={getContentImageStyle(block.image.maxWidth)}
                               />
                             </a>
-                            {block.image.caption ? <p style="margin-top: 0; color: #666; text-align: center;">{block.image.caption}</p> : null}
+                            {block.image.caption ? <p class="project-image-caption">{block.image.caption}</p> : null}
                           </div>
                         ) : null
                       }
@@ -225,7 +196,7 @@ function getAssetUrl(src) {
                                       style={getContentImageStyle(image.maxWidth)}
                                     />
                                   </a>
-                                  {image.caption ? <p style="margin-top: 0; color: #666; text-align: center;">{image.caption}</p> : null}
+                                  {image.caption ? <p class="project-image-caption">{image.caption}</p> : null}
                                 </div>
                               ))
                             }
@@ -239,7 +210,7 @@ function getAssetUrl(src) {
                             <div class={getTwoColumnClasses(block.layout).left}>
                               {
                                 block.left.kind === "text"
-                                  ? <div set:html={block.left.text}></div>
+                                  ? <RichText text={block.left.text} paragraphs={block.left.paragraphs} />
                                   : block.left.kind === "image-grid" ? (
                                     <div class="row" style="--bs-gutter-x: 1.75rem; --bs-gutter-y: 0;">
                                       {block.left.images.map((image) => (
@@ -247,7 +218,7 @@ function getAssetUrl(src) {
                                           <a href={getAssetUrl(image.src)} data-glightbox="single" style="display:block;cursor:zoom-in;">
                                             <img src={getAssetUrl(image.src)} alt={image.alt || project.data.title} style={getContentImageStyle(image.maxWidth)} />
                                           </a>
-                                          {image.caption ? <p style="margin-top: 0; color: #666; text-align: center;">{image.caption}</p> : null}
+                                          {image.caption ? <p class="project-image-caption">{image.caption}</p> : null}
                                         </div>
                                       ))}
                                     </div>
@@ -256,7 +227,7 @@ function getAssetUrl(src) {
                                       <a href={getAssetUrl(block.left.image.src)} data-glightbox="single" style="display:block;cursor:zoom-in;">
                                         <img src={getAssetUrl(block.left.image.src)} alt={block.left.image.alt || project.data.title} style={getContentImageStyle(block.left.image.maxWidth)} />
                                       </a>
-                                      {block.left.image.caption ? <p style="margin-top: 0; color: #666; text-align: center;">{block.left.image.caption}</p> : null}
+                                      {block.left.image.caption ? <p class="project-image-caption">{block.left.image.caption}</p> : null}
                                     </>
                                   )
                               }
@@ -264,7 +235,7 @@ function getAssetUrl(src) {
                             <div class={getTwoColumnClasses(block.layout).right}>
                               {
                                 block.right.kind === "text"
-                                  ? <div set:html={block.right.text}></div>
+                                  ? <RichText text={block.right.text} paragraphs={block.right.paragraphs} />
                                   : block.right.kind === "image-grid" ? (
                                     <div class="row" style="--bs-gutter-x: 1.75rem; --bs-gutter-y: 0;">
                                       {block.right.images.map((image) => (
@@ -272,7 +243,7 @@ function getAssetUrl(src) {
                                           <a href={getAssetUrl(image.src)} data-glightbox="single" style="display:block;cursor:zoom-in;">
                                             <img src={getAssetUrl(image.src)} alt={image.alt || project.data.title} style={getContentImageStyle(image.maxWidth)} />
                                           </a>
-                                          {image.caption ? <p style="margin-top: 0; color: #666; text-align: center;">{image.caption}</p> : null}
+                                          {image.caption ? <p class="project-image-caption">{image.caption}</p> : null}
                                         </div>
                                       ))}
                                     </div>
@@ -281,7 +252,7 @@ function getAssetUrl(src) {
                                       <a href={getAssetUrl(block.right.image.src)} data-glightbox="single" style="display:block;cursor:zoom-in;">
                                         <img src={getAssetUrl(block.right.image.src)} alt={block.right.image.alt || project.data.title} style={getContentImageStyle(block.right.image.maxWidth)} />
                                       </a>
-                                      {block.right.image.caption ? <p style="margin-top: 0; color: #666; text-align: center;">{block.right.image.caption}</p> : null}
+                                      {block.right.image.caption ? <p class="project-image-caption">{block.right.image.caption}</p> : null}
                                     </>
                                   )
                               }
@@ -293,7 +264,7 @@ function getAssetUrl(src) {
                       {
                         block.type === "quote" ? (
                           <blockquote style="border-left: 4px solid #20b38e; padding-left: 1rem; color: #444;">
-                            <p>{block.text}</p>
+                            <RichText text={block.text} paragraphs={block.paragraphs} />
                             {block.author ? <cite>{block.author}</cite> : null}
                           </blockquote>
                         ) : null
@@ -312,7 +283,7 @@ function getAssetUrl(src) {
                               ></iframe>
                             </div>
 
-                            {block.caption ? <p style="margin-top: 0; color: #666; text-align: center;">{block.caption}</p> : null}
+                            {block.caption ? <p class="project-image-caption">{block.caption}</p> : null}
                           </div>
                         ) : null
                       }
@@ -321,26 +292,91 @@ function getAssetUrl(src) {
                 ))
               }
 
-              <div class="row">
-                <div class="col-12 col-lg-10 offset-lg-1 descrip-section">
-                  <Content />
-                </div>
-              </div>
+              {
+                hasSupplementaryContent ? (
+                  <div class="row">
+                    <div class="col-12 col-lg-10 offset-lg-1 descrip-section">
+                      <Content />
+                    </div>
+                  </div>
+                ) : null
+              }
             </div>
           </section>
-        </>
-      ) : (
-        <>
-          {breadcrumbsHtml ? <Fragment set:html={breadcrumbsHtml} /> : null}
-          {portfolioHtml ? <Fragment set:html={portfolioHtml} /> : null}
-        </>
-      )
-    }
+    </>
   </main>
 
   <SiteFooter />
 
 <style is:inline>
+  .project-block--first {
+    margin-top: 3rem;
+  }
+
+  .project-block--after {
+    margin-top: 1.5rem;
+  }
+
+  .project-block--media {
+    margin-top: 2rem;
+  }
+
+  .project-block--media + .project-block {
+    margin-top: 2rem;
+  }
+
+  .project-block--media + .project-block--section {
+    margin-top: 5rem;
+  }
+
+  .project-block--media + .project-block--subheading-after-media {
+    margin-top: 4rem;
+  }
+
+  .project-block--media .descrip-section img {
+    padding-top: 0;
+  }
+
+  .project-block .descrip-section > p:first-child {
+    padding-top: 0;
+  }
+
+  .project-block .descrip-section > :last-child {
+    margin-bottom: 0;
+  }
+
+  .project-image-caption {
+    margin: 0.5rem 0 0;
+    padding-top: 0 !important;
+    color: #666;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .project-block--section {
+    margin-top: 5rem;
+  }
+
+  .project-block--subheading-after-media {
+    margin-top: 4rem;
+  }
+
+  .project-block--disclaimer {
+    margin-top: 5rem;
+  }
+
+  .project-block--embed {
+    margin-top: 2.5rem;
+  }
+
+  .project-block--embed.project-block--section {
+    margin-top: 5rem;
+  }
+
+  .project-block__title {
+    margin: 0 0 0.75rem;
+  }
+
   /* 强化关闭按钮，超大X、清晰可见 */
   .glightbox-clean .gslide-close {
     font-size: 32px !important;

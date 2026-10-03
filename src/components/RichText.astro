@@ -1,0 +1,20 @@
+---
+interface Props {
+  text?: string;
+  paragraphs?: string[];
+}
+
+const { text, paragraphs } = Astro.props;
+const cleanedText = text?.trim().replace(/^(?:<br\s*\/?>(?:\s|&nbsp;)*)+/i, "");
+const blockMarkup = /^(?:<h[1-6]\b|<p\b|<ul\b|<ol\b|<blockquote\b|<div\b)/i;
+---
+
+{
+  paragraphs?.length ? (
+    paragraphs.map((paragraph) =>
+      blockMarkup.test(paragraph.trim()) ? <Fragment set:html={paragraph} /> : <p set:html={paragraph}></p>
+    )
+  ) : cleanedText ? (
+    <Fragment set:html={cleanedText} />
+  ) : null
+}

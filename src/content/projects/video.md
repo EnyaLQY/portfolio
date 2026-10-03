@@ -22,10 +22,12 @@ info:
 blocks:
   - type: "paragraph"
     title: "Fan-made Anime"
-    text: "This is a fan-made music anime dōga(MAD). The characters in the video comes from the game called Elsword. I drew each slide of pictures and designed the camera movement. Then I rendered the video with an anime song(orinigal author is refered in the video). Now it has 1100+ page views. More work can be checked out in my Bilibili main page."
+    paragraphs:
+      - "This is a fan-made music anime dōga(MAD). The characters in the video comes from the game called Elsword. I drew each slide of pictures and designed the camera movement. Then I rendered the video with an anime song(orinigal author is refered in the video). Now it has 1100+ page views. More work can be checked out in my Bilibili main page."
   - type: "paragraph"
     title: "Details"
-    text: "Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat."
+    paragraphs:
+      - "Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat."
 featured: true
 ---
 

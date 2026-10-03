@@ -9,8 +9,6 @@ This repository is being migrated from hand-maintained static HTML pages to Astr
 - Generated pages:
   - Home page: `src/pages/index.astro`
   - Project detail pages: `src/pages/projects/[slug].astro`
-- Legacy detail URL redirects: `src/pages/[legacy].html.astro`
-- Legacy assets and detail pages mirrored into `public/` for compatibility during migration.
 - GitHub Actions workflow for Pages deployment: `.github/workflows/deploy.yml`
 
 ## Local development
@@ -41,16 +39,8 @@ npm run preview
 3. Write project narrative in markdown body.
 4. The project will appear automatically on home and get a generated detail page.
 
-## Regenerate content from legacy HTML
+## Content structure
 
-If you update any legacy detail file (`portfolio_details_*.html`), you can regenerate Astro content entries:
-
-```bash
-node scripts/migrate-legacy-to-content.mjs
-```
-
-The command overwrites files under `src/content/projects/`.
-
-## Migration note
-
-Current project markdown entries are baseline placeholders. Next migration step is to move rich narrative content from legacy HTML detail pages into each markdown file.
+- Project details live in `src/content/projects/*.md`.
+- Published images, styles, scripts, and vendor files live in `public/assets/`.
+- `src/pages/projects/[slug].astro` renders every project from its structured content blocks.

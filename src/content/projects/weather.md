@@ -34,23 +34,29 @@ info:
 blocks:
   - type: "paragraph"
     title: "Design Problem"
-    text: "<p>Our project’s objective is to gain an understanding of what kinds of difficulties people face with the weather when they enter a new environment and how existing weather technology and personal clothing preferences affect people’s decisions about what to wear.</p>"
+    paragraphs:
+      - "<p>Our project’s objective is to gain an understanding of what kinds of difficulties people face with the weather when they enter a new environment and how existing weather technology and personal clothing preferences affect people’s decisions about what to wear.</p>"
   - type: "two-column"
     title: "User Research"
     layout: "1-2"
     left:
       kind: "text"
-      text: "<p>Our group interviewed 6 participants in total (I interviewed 2 of them). All of them were Cornell students and they had various background. We conducted semi-structured interviews, asking the participates to walk us through their daily routines and personal experience with weather.</p><p>After gathering the interview transcript, we used an affinity diagram with FigJam to synthesize our findings and insights.</p>"
+      paragraphs:
+        - "<p>Our group interviewed 6 participants in total (I interviewed 2 of them). All of them were Cornell students and they had various background. We conducted semi-structured interviews, asking the participates to walk us through their daily routines and personal experience with weather.</p>"
+        - "<p>After gathering the interview transcript, we used an affinity diagram with FigJam to synthesize our findings and insights.</p>"
     right:
       kind: "image"
       image:
         src: "assets/img/portfolio/weather/Screen Shot 2023-04-08 at 5.34.42 PM.png"
         alt: "Affinity mapping and interview synthesis"
   - type: "paragraph"
-    text: "<p>Although we noticed that Apple Weather has become the go-to app for the majority of people, we captured some insights from our interviews that could help us make something different:</p><ul><li>The importance of fashion varies from person to person.<br><br>While some of our users prioritized their looks, or their comfort, others just take whatever is on the top of their wardrobe. Others look more favorably upon a certain type of style, or clothing pieces, such as baggy jeans, or sweat pants.<br><br></li><li>Time and emotion affect fashion choices as much as the weather does.<br><br>Some of our users rush in the morning, which leads them to choose whatever is on top of their wardrobes, while others plan it the night before. One of our users told us that planning an outfit in the morning helps her be in a good mood that day. Another user alters the outfit after the night has passed, with how the weather has fluctuated.<br><br></li><li>Weather apps have features that some users consider to be unimportant.<br><br>There are plenty of features on the weather app available for users to check for all facets of weather. Their goal of finding the weather pattern is inhibited by the challenge of an overload of features that are inaccessible or unusable to them, making them have a negative attitude towards the weather, and frustrations in dressing.<br><br></li></ul>"
+    paragraphs:
+      - "<p>Although we noticed that Apple Weather has become the go-to app for the majority of people, we captured some insights from our interviews that could help us make something different:</p>"
+      - "<ul><li>The importance of fashion varies from person to person.\nWhile some of our users prioritized their looks, or their comfort, others just take whatever is on the top of their wardrobe. Others look more favorably upon a certain type of style, or clothing pieces, such as baggy jeans, or sweat pants.\n</li><li>Time and emotion affect fashion choices as much as the weather does.\nSome of our users rush in the morning, which leads them to choose whatever is on top of their wardrobes, while others plan it the night before. One of our users told us that planning an outfit in the morning helps her be in a good mood that day. Another user alters the outfit after the night has passed, with how the weather has fluctuated.\n</li><li>Weather apps have features that some users consider to be unimportant.\nThere are plenty of features on the weather app available for users to check for all facets of weather. Their goal of finding the weather pattern is inhibited by the challenge of an overload of features that are inaccessible or unusable to them, making them have a negative attitude towards the weather, and frustrations in dressing.\n</li></ul>"
   - type: "paragraph"
     title: "Initial Design"
-    text: "<p>We expanded the solution space based on the result of user research. Each of the group members brainstormed 15 unique solutions (I came up with 20 as a grad student. <a href=\"https://docs.google.com/document/d/1vGNoL-40XZZR0EA27l8FyUFnqsYf0hjgmgHD7b2UkfQ/edit?usp=sharing\" target=\"_blank\" rel=\"noreferrer\">Link to my design drafts.</a>). After our group discussion, the final solution for this project is a weather app that incorporates weather information with a calendar, personal customization, and social feed. Some brainstorming ideas designed by myself and were selected to move forward to next phase:</p>"
+    paragraphs:
+      - "<p>We expanded the solution space based on the result of user research. Each of the group members brainstormed 15 unique solutions (I came up with 20 as a grad student. <a href=\"https://docs.google.com/document/d/1vGNoL-40XZZR0EA27l8FyUFnqsYf0hjgmgHD7b2UkfQ/edit?usp=sharing\" target=\"_blank\" rel=\"noreferrer\">Link to my design drafts.</a>). After our group discussion, the final solution for this project is a weather app that incorporates weather information with a calendar, personal customization, and social feed. Some brainstorming ideas designed by myself and were selected to move forward to next phase:</p>"
   - type: "image-grid"
     images:
       - src: "assets/img/portfolio/weather/Screen Shot 2023-04-08 at 5.44.16 PM.png"
@@ -59,7 +65,8 @@ blocks:
         alt: "Selected concept sketches"
   - type: "paragraph"
     title: "Low Fidelity Prototype"
-    text: "Each of the group members created a paper prototype and tested it with real users. Integrating the feedback from the participants, we moved to the stage of high fidelity prototype."
+    paragraphs:
+      - "Each of the group members created a paper prototype and tested it with real users. Integrating the feedback from the participants, we moved to the stage of high fidelity prototype."
   - type: "image-grid"
     images:
       - src: "assets/img/portfolio/weather/paper_proto.JPG"
@@ -68,7 +75,10 @@ blocks:
         alt: "Paper prototype version 2"
   - type: "paragraph"
     title: "Mid-Fidelity Prototype"
-    text: "<p>The key functions for the mid-fidelity prototype are:</p><ul><li>general weather information<br></li><li>event calendar<br></li><li>personal customization<br></li><li>social feed</li></ul><p>I was mainly responsable for the weather home page, calendar editing and personal customization. I created the mid-fedility prototype in Figma. I chose light colors, round widgets and light-weighted interface. I wanted to make it not only functionally powerful and useful, but also neat and easy for everyone to use.</p>"
+    paragraphs:
+      - "<p>The key functions for the mid-fidelity prototype are:</p>"
+      - "<ul><li>general weather information\n</li><li>event calendar\n</li><li>personal customization\n</li><li>social feed</li></ul>"
+      - "<p>I was mainly responsable for the weather home page, calendar editing and personal customization. I created the mid-fedility prototype in Figma. I chose light colors, round widgets and light-weighted interface. I wanted to make it not only functionally powerful and useful, but also neat and easy for everyone to use.</p>"
   - type: "image-grid"
     images:
       - src: "assets/img/portfolio/weather/Weather with personal input.png"
@@ -83,7 +93,10 @@ blocks:
     title: "High Fidelity Prototype & Usability Test"
     left:
       kind: "text"
-      text: "<p>We used Figma for building the high fidelity prototype. In order to unify the design style in a team and save the time for more testing, we finally chose a more simple but also more industrial standard color sets and widget styles.</p><p> We iterated the process of the usability test and conducted interviews with different participants again. Suggestions from participants included the readability of text, the flow between different pages, and the explanation for different buttons. We balanced the cost and severity of each design problem and made improvements to our final prototype.</p><br><br>[<a href=\"https://www.figma.com/proto/mTHyg6dlBXCJTbMaLXDwCK/INFO3450-A4%2FA5-Group?scaling=scale-down&page-id=0%3A1&starting-point-node-id=258%3A559&show-proto-sidebar=1&node-id=258%3A559\" target=\"_blank\" rel=\"noreferrer\">Link to Figma Presentation.</a>] [<a href=\"https://drive.google.com/file/d/1bnCXavCKg-RFHmGsIgcunQD06d2TYte3/view?usp=sharing\" target=\"_blank\" rel=\"noreferrer\">Link to Video Demo.</a>]"
+      paragraphs:
+        - "<p>We used Figma for building the high fidelity prototype. In order to unify the design style in a team and save the time for more testing, we finally chose a more simple but also more industrial standard color sets and widget styles.</p>"
+        - "<p> We iterated the process of the usability test and conducted interviews with different participants again. Suggestions from participants included the readability of text, the flow between different pages, and the explanation for different buttons. We balanced the cost and severity of each design problem and made improvements to our final prototype.</p>"
+        - "[<a href=\"https://www.figma.com/proto/mTHyg6dlBXCJTbMaLXDwCK/INFO3450-A4%2FA5-Group?scaling=scale-down&page-id=0%3A1&starting-point-node-id=258%3A559&show-proto-sidebar=1&node-id=258%3A559\" target=\"_blank\" rel=\"noreferrer\">Link to Figma Presentation.</a>] [<a href=\"https://drive.google.com/file/d/1bnCXavCKg-RFHmGsIgcunQD06d2TYte3/view?usp=sharing\" target=\"_blank\" rel=\"noreferrer\">Link to Video Demo.</a>]"
     right:
       kind: "image-grid"
       images:

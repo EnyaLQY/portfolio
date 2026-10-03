@@ -16,12 +16,15 @@ info:
 blocks:
   - type: "paragraph"
     title: "Project Goal"
-    text: "This case demonstrates a fully Astro-native project page without relying on legacy HTML. The page structure is authored entirely through structured frontmatter blocks."
+    paragraphs:
+      - "This case demonstrates a fully Astro-native project page without relying on legacy HTML."
+      - "The page structure is authored entirely through structured frontmatter blocks."
   - type: "two-column"
     title: "Research and Synthesis"
     left:
       kind: "text"
-      text: "We conducted stakeholder interviews and affinity mapping to identify communication gaps and decision bottlenecks. The findings informed our navigation and content hierarchy."
+      paragraphs:
+        - "We conducted stakeholder interviews and affinity mapping to identify communication gaps and decision bottlenecks. The findings informed our navigation and content hierarchy."
     right:
       kind: "image"
       image:
@@ -36,7 +39,8 @@ blocks:
       - src: "assets/img/portfolio/xmp/High fi.png"
         alt: "High fidelity screens"
   - type: "quote"
-    text: "Structured content lets us keep layout consistency while preserving project-specific storytelling."
+    paragraphs:
+      - "Structured content lets us keep layout consistency while preserving project-specific storytelling."
     author: "Project Team"
 featured: true
 ---

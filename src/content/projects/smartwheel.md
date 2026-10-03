@@ -20,10 +20,12 @@ info:
 blocks:
   - type: "paragraph"
     title: "Smart Wheels"
-    text: "Our product, Smart Wheels, aims to minimize the amount of effort and time required to move heavy objects over short distances by attaching the wheels to the objects and transporting them via the in-wheel motor system. Users can use the Smart Wheels by sliding them under the heavy object and then by pairing each wheel in use to the smartphone app through Bluetooth. Using the app, the user can activate the wheels simultaneously, which consequently lifts the object into the air and readies it for transport, and control the wheels’ subsequent movements. As the graphic designer in the team, I designed the physical component, prototyped the remote-controlled Smart Wheels and drew storyboards with Photoshop and Procreate. I designed the concepts of the interactivity between the users and the product. I also made contributions to the user research and digital interface design."
+    paragraphs:
+      - "Our product, Smart Wheels, aims to minimize the amount of effort and time required to move heavy objects over short distances by attaching the wheels to the objects and transporting them via the in-wheel motor system. Users can use the Smart Wheels by sliding them under the heavy object and then by pairing each wheel in use to the smartphone app through Bluetooth. Using the app, the user can activate the wheels simultaneously, which consequently lifts the object into the air and readies it for transport, and control the wheels’ subsequent movements. As the graphic designer in the team, I designed the physical component, prototyped the remote-controlled Smart Wheels and drew storyboards with Photoshop and Procreate. I designed the concepts of the interactivity between the users and the product. I also made contributions to the user research and digital interface design."
   - type: "paragraph"
     title: "Details"
-    text: "Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat."
+    paragraphs:
+      - "Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat."
 featured: true
 ---
 

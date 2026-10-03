@@ -20,10 +20,12 @@ info:
 blocks:
   - type: "paragraph"
     title: "Memepedia"
-    text: "Memepedia is a web platform that is used for meme collections and shares. People can create their own accounts to access our meme library. After logging in, users are allowed to upload their loved pictures and like others' posts."
+    paragraphs:
+      - "Memepedia is a web platform that is used for meme collections and shares. People can create their own accounts to access our meme library. After logging in, users are allowed to upload their loved pictures and like others' posts."
   - type: "paragraph"
     title: "Details"
-    text: "Qianya Lin Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat."
+    paragraphs:
+      - "Qianya Lin Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat."
 featured: true
 ---
 

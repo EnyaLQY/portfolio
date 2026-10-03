@@ -6,6 +6,21 @@ import PortfolioItemCard from "../../components/PortfolioItemCard.astro";
 
 const legacyPath = path.join(process.cwd(), "public/portfolio/index.html");
 const legacyHtml = fs.readFileSync(legacyPath, "utf8");
+const base = import.meta.env.BASE_URL;
+
+function withBase(url) {
+  if (url.startsWith("../portfolio/")) return `${base}${url.slice("../portfolio/".length)}`;
+  if (url.startsWith("../assets/")) return `${base}assets/${url.slice("../assets/".length)}`;
+  if (url.startsWith("../projects/")) return `${base}projects/${url.slice("../projects/".length)}`;
+  return url;
+}
+
+function rewriteLegacyUrls(html) {
+  return html.replace(/\b(href|src)=(['"])([^'"]+)\2/g, (match, attribute, quote, url) => {
+    const resolvedUrl = withBase(url);
+    return resolvedUrl === url ? match : `${attribute}=${quote}${resolvedUrl}${quote}`;
+  });
+}
 
 const portfolioMatch = legacyHtml.match(
   /([\s\S]*?<div class="row portfolio-container">)([\s\S]*?)(\s*<\/div>\s*<\/div>\s*<\/section><!-- End My Portfolio Section -->[\s\S]*)/
@@ -15,15 +30,20 @@ if (!portfolioMatch) {
   throw new Error("Unable to locate portfolio container in legacy homepage template.");
 }
 
-const beforePortfolio = portfolioMatch[1];
-const afterPortfolio = portfolioMatch[3];
+const beforePortfolio = rewriteLegacyUrls(portfolioMatch[1]);
+const afterPortfolio = rewriteLegacyUrls(portfolioMatch[3]);
 
 const homePortfolio = await getEntry("home", "portfolio");
 if (!homePortfolio) {
   throw new Error("Missing home content entry: src/content/home/portfolio.md");
 }
 
-const portfolioCards = homePortfolio.data.cards;
+const portfolioCards = homePortfolio.data.cards.map((card) => ({
+  ...card,
+  href: withBase(card.href),
+  image: withBase(card.image),
+  previewHref: card.previewHref ? withBase(card.previewHref) : undefined
+}));
 ---
 
 <Fragment set:html={beforePortfolio} />

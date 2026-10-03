@@ -46,7 +46,7 @@ cards:
   - href: "../portfolio/projects/ideal/"
     title: "Project - iDeal Website"
     subtitle: "UIUX Design/Web Development"
-    image: "../portfolio/assets/img/portfolio/ideal/unnamed.png"
+    image: "../portfolio/assets/img/portfolio/ideal/visual.png"
     filters: "filter-app"
 
   # - href: "../portfolio/projects/kamino/"

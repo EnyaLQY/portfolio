@@ -22,10 +22,12 @@ info:
 blocks:
   - type: "paragraph"
     title: "Video Game Design Project - Rocky's Road"
-    text: "Rocky's Road is a puzzle adventure game based on the settings of University of Rochester. Players can learn knowledge from different fields as their power to defeat the enemy. Our team used GameMaker Studio to develop this game. As the graphic designer, I designed fundamental art concepts and objects. I also made contribution to the gameplay interactivity."
+    paragraphs:
+      - "Rocky's Road is a puzzle adventure game based on the settings of University of Rochester. Players can learn knowledge from different fields as their power to defeat the enemy. Our team used GameMaker Studio to develop this game. As the graphic designer, I designed fundamental art concepts and objects. I also made contribution to the gameplay interactivity."
   - type: "paragraph"
     title: "Details"
-    text: "Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat."
+    paragraphs:
+      - "Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat."
 featured: true
 ---
 

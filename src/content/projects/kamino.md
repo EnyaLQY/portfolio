@@ -28,7 +28,8 @@ blocks:
         alt: "KaminoAuto Website"
   - type: "paragraph"
     title: "Details"
-    text: "Kamino Auto Industries Limited is a professional B2B exporter for various auto spare parts and accessories in China. The goal of this website is to manage and list products and connect with more clients internationally. According to the traffic analysis, the website brings an average monthly 2k+ unique visitors and 10k+ pageviews, and the activities is keeping increasing now. The company provided the list of product categories and assets (company introduction, contact, photos, etc.). Based on these information, I selected several item listing templates that can best present the company and its product. Given the limited budget and styling preference, I consulted with the company director to select the most suitable host plan and website theme."
+    paragraphs:
+      - "Kamino Auto Industries Limited is a professional B2B exporter for various auto spare parts and accessories in China. The goal of this website is to manage and list products and connect with more clients internationally. According to the traffic analysis, the website brings an average monthly 2k+ unique visitors and 10k+ pageviews, and the activities is keeping increasing now. The company provided the list of product categories and assets (company introduction, contact, photos, etc.). Based on these information, I selected several item listing templates that can best present the company and its product. Given the limited budget and styling preference, I consulted with the company director to select the most suitable host plan and website theme."
 featured: true
 ---
 

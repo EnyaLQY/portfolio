@@ -7,11 +7,13 @@ const mediaItem = z.object({
   maxWidth: z.string().optional()
 });
 
+const proseFields = {
+  text: z.string().optional(),
+  paragraphs: z.array(z.string()).min(1).optional()
+};
+
 const columnContent = z.discriminatedUnion("kind", [
-  z.object({
-    kind: z.literal("text"),
-    text: z.string()
-  }),
+  z.object({ kind: z.literal("text"), ...proseFields }),
   z.object({
     kind: z.literal("image"),
     image: mediaItem
@@ -27,7 +29,7 @@ const projectBlock = z.discriminatedUnion("type", [
     type: z.literal("paragraph"),
     title: z.string().optional(),
     spaceBefore: z.string().optional(),
-    text: z.string()
+    ...proseFields
   }),
   z.object({
     type: z.literal("image"),
@@ -52,7 +54,7 @@ const projectBlock = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("quote"),
     spaceBefore: z.string().optional(),
-    text: z.string(),
+    ...proseFields,
     author: z.string().optional()
   }),
   z.object({
@@ -73,7 +75,6 @@ const projects = defineCollection({
     timeline: z.string().optional(),
     cover: z.string().optional(),
     gallery: z.array(z.string()).optional(),
-    legacyFile: z.string().optional(),
     summary: z.string().optional(),
     client: z.string().optional(),
     teamMembers: z.string().optional(),
