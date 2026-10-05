@@ -2,82 +2,112 @@
 title: "BMW - AI Agent-Based Launcher"
 category: "UX Design & Prototyping"
 Topic: "Innovation Project"
-timeline: "undisclosed"
-summary: "A exploration of how AI Agent can empower and restruct the intent-driven interaction in HMI."
+timeline: "Undisclosed"
+summary: "Explored how an AI agent could shift the in-car launcher from app navigation toward intent-driven, adaptive interaction."
 heroGallery:
   - src: "assets/img/portfolio/bmw-launcher/PROJECT2.png"
-    alt: ""
+    alt: "AI agent-based launcher concept"
   - src: "assets/img/portfolio/bmw-launcher/research.png"
-    alt: ""
+    alt: "AI launcher benchmark research"
 info:
   role: "UX Designer & Prototyper"
-  tools: "Figma, ProtoPie, Coding (Python)"
+  tools: "Figma, ProtoPie, Python"
 blocks:
-  - type: "paragraph"
-    title: "Project Background"
-    paragraphs:
-      - "At project kickoff, we completed two directions of benchmark research:"
-      - "<ul><li>A horizontal comparison of mainstream generative AI models, focusing on contextual awareness and personalized generation quality.</li><li>A mapping of leading OEM in-car products and AI tools to identify trends in automotive interaction design.</li></ul>"
-      - "Through this research, we identified a clear paradigm shift: as generative AI — particularly GEN-UI — is getting mature, HCI is moving from traditional UI-driven navigation toward intent-driven natural interaction. AI is no longer just a functional auxiliary tool; it is evolving into an intelligent agent with deep personalization and contextual awareness, capable of proactively interpreting user needs and participating in task decision-making and execution."
-  # - type: "paragraph"
-  #   title: "Core Design Problem"
-  #   text: ""
   - type: "two-column"
-    title: "Core Design Problem"
-    layout: "2-1"
+    title: "Project Background"
+    layout: "1-1"
     left:
       kind: "text"
       paragraphs:
-        - "Building on this insight, we defined two core design questions:"
-        - "<ul><li>As interaction logic shifts from click-based hierarchical navigation to intent-driven intelligent response, how will the information architecture and layout of the homepage — the system’s core entry point — be restructured?</li><li>Will deep integration of an AI Agent fundamentally reshape how users interact with the in-car system?</li></ul>"
-        - "To answer these questions, we launched the innovation project AI Launcher, exploring the potential impact of agent-based homepage framework and layout design, and envisioning a more efficient, natural system entry experience for this new interaction paradigm."
+        - "<strong>How might an in-car home screen evolve when people express intent instead of navigating menus?</strong>"
+        - "Benchmark research across mainstream GenAI models, leading OEM experiences, and AI tools pointed to the same shift: interaction is moving from UI-led navigation toward natural, intent-led requests."
+        - "The opportunity was not to add another assistant to the launcher. It was to explore how an agent could understand context, personalize the starting point, and help carry a task forward within a familiar BMW HMI."
     right:
       kind: "image"
       image:
-        src: "assets/img/portfolio/bmw-launcher/design_problem.png"
-        alt: ""
+        src: "assets/img/portfolio/bmw-launcher/research3.png"
+        alt: "Research informing the AI launcher opportunity"
+
   - type: "paragraph"
-    title: "Design Opportunities & Challenges"
+    title: "Core Design Problem"
     paragraphs:
-      - "The core challenge is balancing AI’s strengths and limitations: leveraging the <strong>flexibility</strong> and <strong>creativity</strong> of generative AI while enforcing guardrails to ensure output stability and consistency."
-      - "To address this, we built a standardized generation template system based on our well-defined component library and design guidelines, which was fed into the LLM as structured reference input. It guides all generated outputs to align with brand standards in both component structure and visual style. Integrating AI Agent with the established library and design system enables the user interface to respond to dynamic intentions."
+      - "The launcher is the system's most frequent entry point, yet conventional home screens assume users know where to go before they act. An agent-based system needs to respond to a goal without making the result feel unpredictable."
+  - type: "question-grid"
+    questions:
+      - label: "Question 01"
+        question: "How should the homepage reorganize around user intent rather than hierarchical navigation?"
+      - label: "Question 02"
+        question: "How can an AI agent help users act while preserving clarity, control, and trust?"
+
+  - type: "paragraph"
+    title: "Designing for Controlled Generation"
+    paragraphs:
+      - "<strong>Generative flexibility needs a stable interaction foundation.</strong> An agent can adapt the launcher to intent, but unconstrained output risks inconsistent hierarchy, unstable patterns, and a weakened brand experience."
+      - "I used the existing component library and design guidelines as structured reference input for the LLM. This allowed generated layouts to respond dynamically while continuing to reuse approved visual and interaction rules."
+      - "The result was a controllable framework: the agent could propose new launcher states without becoming a separate, visually unpredictable system."
+
   - type: "image"
     image:
       src: "assets/img/portfolio/bmw-launcher/design_system.png"
-      alt: ""
+      alt: "Design-system foundation for controlled generation"
+      caption: "Structured design-system inputs constrained generated launcher states while preserving flexibility."
+      maxWidth: "100%"
+
   - type: "paragraph"
-    title: "Use Case Design"
+    title: "Experience Framework"
     paragraphs:
-      - "Building on our initial research questions, we designed use cases focused on native Chinese market scenarios. Leveraging China’s highly mature digital ecosystem, we aimed to fully validate the potential of AI interaction in automotive contexts and deeply explore core user needs for next-generation home screens.Scene concepts were developed around two core experience pillars:"
-      - "<ul><li><strong>Highly customizable home screen (Customize Launcher)</strong>: Full layout freedom with support for adding/removing quick widgets and position adjustment, accommodating diverse user habits</li><li><strong>Visualized intelligent task flows (Agent Routine)</strong>: Multi-step sequential operations are consolidated into automated intelligent task flows with visualized execution paths, efficiently addressing multi-tasking needs in driving scenarios and reducing distraction costs.</li></ul>"
+      - "I designed two complementary use cases for the Chinese market: one gives drivers direct control over their launcher, while the other turns a multi-step goal into an understandable, visualized routine."
+
+  - type: "workflow"
+    root: "AI Launcher"
+    items:
+      - title: "Customize Launcher"
+        description: "Drivers shape a personal home screen while the system keeps the layout coherent and usable."
+        steps:
+          - "Express preference"
+          - "Compose widget layout"
+          - "Review and adjust"
+      - title: "Agent Routine"
+        description: "The agent consolidates sequential tasks into a visible routine that reduces interaction cost while driving."
+        steps:
+          - "State a driving goal"
+          - "Plan task sequence"
+          - "Show execution path"
+
   - type: "image"
     image:
       src: "assets/img/portfolio/bmw-launcher/roadmap.png"
-      alt: ""
+      alt: "AI launcher scenario roadmap"
+      caption: "Scenario concepts translated the two experience pillars into an agent-based launcher roadmap."
+      maxWidth: "100%"
+
   - type: "paragraph"
-    title: "Implementation"
+    title: "Prototype Implementation"
     paragraphs:
-      - "We integrated technical feasibility validation early into the concept exploration phase to prevent designs from remaining purely theoretical."
-      - "For implementation, we referenced open-source architectures on GitHub to build the foundational logic, then built the functional prototype via ProtoPie integrated with API code, completing a fully end-to-end interactive experience for generative widgets."
+      - "Technical feasibility was explored alongside the concept, not after it. I referenced open-source agent architectures to establish the foundational logic, then connected ProtoPie interactions with API code and Python-based behavior."
+      - "This produced an end-to-end prototype in which the launcher could interpret a voice-led intent, select relevant widgets, and assemble a purposeful layout rather than merely simulate a static concept."
+  
   - type: "image"
     image:
       src: "assets/img/portfolio/bmw-launcher/implementation.png"
-      alt: ""  
-  # - type: "image"
-  #   image:
-  #     src: "assets/img/portfolio/bmw-launcher/demo.png"
-  #     alt: ""  
-  #     caption: "ProtoPie Demo Screenshot"
-  - type: embed
-    title: "Prototype Demo Video"
-    src: https://www.youtube.com/embed/SBkUDjApTgA
-    caption: "AI-driven widget layouts dynamically selected based on user intent from voice commands"
+      alt: "AI launcher prototype implementation"
+      caption: "Prototype logic connected intent interpretation, widget selection, and rendered launcher states."
+
+  - type: "embed"
+    title: "Prototype Demo"
+    src: "https://www.youtube.com/embed/SBkUDjApTgA"
+    caption: "The launcher dynamically selects a widget layout from a voice-led user intent."
     width: "80%"
     height: "400"
+
   - type: "paragraph"
-    title: "Next Step"
+    title: "Outcome & Next Step"
     paragraphs:
-      - "The final high-fidelity prototype was presented to cross-functional stakeholders across departments and widely well-received. This deliverable provides solid conceptual and technical validation, laying a robust foundation for the project's next phase. It also offers a tangible reference for broader exploration of intent-driven in-car interaction — demonstrating how AI Agents can reshape traditional homepage information architecture and redefine user-system engagement patterns."
+      - "<h5>What the prototype made tangible</h5>"
+      - "The high-fidelity prototype gave cross-functional stakeholders a concrete way to evaluate an agent-based launcher: not as an abstract AI concept, but as a controllable HMI direction with a feasible interaction and implementation path."
+      - "<h5>What I would validate next</h5>"
+      - "The next phase would test comprehension and trust with drivers in realistic in-car scenarios, compare agent-suggested layouts against manual customization, and define the moments where the system should ask for confirmation rather than act proactively."
+
   - type: "paragraph"
     paragraphs:
       - "<strong>Disclaimer:</strong> All materials are presented solely to demonstrate design thinking and process, and do not represent the actual product."

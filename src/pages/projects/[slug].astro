@@ -161,7 +161,7 @@ function getAssetUrl(src) {
               {
                 blocks.map((block, index) => (
                   <div
-                    class={`row project-block${index === 0 ? " project-block--first" : ""}${index > 0 ? " project-block--after" : ""}${isMediaBlock(block) ? " project-block--media" : ""}${block.type === "decision" ? " project-block--decision" : ""}${block.type === "interaction-grid" ? " project-block--interaction" : ""}${block.type === "embed" ? " project-block--embed" : ""}${hasBlockTitle(block) && index > 0 ? " project-block--section" : ""}${index > 0 && isMediaBlock(blocks[index - 1]) && hasSubheading(block) ? " project-block--subheading-after-media" : ""}${isDisclaimer(block) ? " project-block--disclaimer" : ""}`}
+                    class={`row project-block${index === 0 ? " project-block--first" : ""}${index > 0 ? " project-block--after" : ""}${isMediaBlock(block) ? " project-block--media" : ""}${block.type === "decision" ? " project-block--decision" : ""}${block.type === "interaction-grid" ? " project-block--interaction" : ""}${block.type === "question-grid" ? " project-block--question-grid" : ""}${block.type === "embed" ? " project-block--embed" : ""}${hasBlockTitle(block) && index > 0 ? " project-block--section" : ""}${index > 0 && isMediaBlock(blocks[index - 1]) && hasSubheading(block) ? " project-block--subheading-after-media" : ""}${isDisclaimer(block) ? " project-block--disclaimer" : ""}`}
                   >
                     <div class="col-12 col-lg-10 offset-lg-1 descrip-section" style="padding-top: 0; padding-bottom: 0;">
                       {block.title ? <h2 class="project-block__title">{block.title}</h2> : null}
@@ -346,6 +346,21 @@ function getAssetUrl(src) {
                                 ))
                               }
                             </div>
+                          </section>
+                        ) : null
+                      }
+
+                      {
+                        block.type === "question-grid" ? (
+                          <section class="project-question-grid">
+                            {
+                              block.questions.map((item) => (
+                                <article class="project-question-grid__item">
+                                  <p>{item.label}</p>
+                                  <h3>{item.question}</h3>
+                                </article>
+                              ))
+                            }
                           </section>
                         ) : null
                       }
@@ -551,6 +566,10 @@ function getAssetUrl(src) {
     padding-top: 0;
   }
 
+  .project-block .descrip-section img {
+    border-radius: 0.8rem;
+  }
+
   .project-block .descrip-section > p:first-child {
     padding-top: 0;
   }
@@ -593,6 +612,10 @@ function getAssetUrl(src) {
 
   .project-block--interaction {
     margin-top: 0.25rem;
+  }
+
+  .project-block--question-grid {
+    margin-top: 0.5rem;
   }
 
   .project-decision {
@@ -905,6 +928,12 @@ function getAssetUrl(src) {
     gap: 1.25rem;
   }
 
+  @supports selector(:has(*)) {
+    .project-workflow__items:has(.project-workflow__item:nth-child(2):last-child) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
   .project-workflow__item {
     padding: 1.25rem;
     border: 1px solid rgba(15, 23, 42, 0.12);
@@ -1141,6 +1170,37 @@ function getAssetUrl(src) {
     object-position: center;
   }
 
+  .project-question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-question-grid__item {
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-radius: 1.25rem;
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.96), rgba(255, 255, 255, 0.98));
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
+  }
+
+  .project-question-grid__item p {
+    margin: 0 0 0.75rem;
+    padding-top: 0 !important;
+    color: #20b38e;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .project-question-grid__item h3 {
+    margin: 0;
+    color: #0f172a;
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    line-height: 1.4;
+  }
+
   @media (max-width: 575.98px) {
     .project-data-chart__metric-header {
       grid-template-columns: 1fr;
@@ -1150,7 +1210,8 @@ function getAssetUrl(src) {
     .project-workflow__items,
     .project-research__setup,
     .project-research__metrics,
-    .project-interaction-grid__items {
+    .project-interaction-grid__items,
+    .project-question-grid {
       grid-template-columns: 1fr;
     }
   }

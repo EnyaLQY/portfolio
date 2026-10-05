@@ -113,6 +113,14 @@ const projectBlock = z.discriminatedUnion("type", [
     })).min(1)
   }),
   z.object({
+    type: z.literal("question-grid"),
+    title: z.string().optional(),
+    questions: z.array(z.object({
+      label: z.string(),
+      question: z.string()
+    })).min(1)
+  }),
+  z.object({
     type: z.literal("research-grid"),
     title: z.string().optional(),
     eyebrow: z.string().optional(),
