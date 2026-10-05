@@ -21,6 +21,21 @@ const columnContent = z.discriminatedUnion("kind", [
   z.object({
     kind: z.literal("image-grid"),
     images: z.array(mediaItem).min(1)
+  }),
+  z.object({
+    kind: z.literal("data-chart"),
+    eyebrow: z.string().optional(),
+    description: z.string().optional(),
+    compact: z.boolean().optional(),
+    metrics: z.array(z.object({
+      value: z.string(),
+      label: z.string(),
+      detail: z.string().optional(),
+      progress: z.number().min(0).max(100).optional()
+    })).min(1),
+    sourceLabel: z.string().optional(),
+    sourceUrl: z.string().url().optional(),
+    note: z.string().optional()
   })
 ]);
 
@@ -50,6 +65,75 @@ const projectBlock = z.discriminatedUnion("type", [
     layout: z.enum(["1-1", "1-2", "2-1"]).optional(),
     left: columnContent,
     right: columnContent
+  }),
+  z.object({
+    type: z.literal("decision"),
+    label: z.string(),
+    question: z.string(),
+    decision: z.string(),
+    rationale: z.array(z.string()).min(1),
+    outcome: z.string().optional(),
+    image: mediaItem.optional()
+  }),
+  z.object({
+    type: z.literal("data-chart"),
+    title: z.string().optional(),
+    eyebrow: z.string().optional(),
+    description: z.string().optional(),
+    compact: z.boolean().optional(),
+    metrics: z.array(z.object({
+      value: z.string(),
+      label: z.string(),
+      detail: z.string().optional(),
+      progress: z.number().min(0).max(100).optional()
+    })).min(1),
+    sourceLabel: z.string().optional(),
+    sourceUrl: z.string().url().optional(),
+    note: z.string().optional()
+  }),
+  z.object({
+    type: z.literal("workflow"),
+    title: z.string().optional(),
+    intro: z.string().optional(),
+    root: z.string(),
+    items: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+      steps: z.array(z.string()).min(1)
+    })).min(1)
+  }),
+  z.object({
+    type: z.literal("interaction-grid"),
+    title: z.string().optional(),
+    intro: z.string().optional(),
+    items: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+      image: mediaItem
+    })).min(1)
+  }),
+  z.object({
+    type: z.literal("research-grid"),
+    title: z.string().optional(),
+    eyebrow: z.string().optional(),
+    participants: z.string(),
+    methods: z.array(z.string()).min(1),
+    metrics: z.array(z.object({
+      value: z.string(),
+      label: z.string(),
+      detail: z.string().optional()
+    })).min(1),
+    pioneer: z.object({
+      title: z.string(),
+      paragraphs: z.array(z.string()).min(1),
+      image: mediaItem
+    }).optional(),
+    output: mediaItem.optional(),
+    testing: z.object({
+      title: z.string(),
+      paragraphs: z.array(z.string()).min(1)
+    }).optional(),
+    note: z.string().optional()
   }),
   z.object({
     type: z.literal("quote"),
