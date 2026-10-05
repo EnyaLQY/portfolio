@@ -132,16 +132,15 @@ blocks:
       - "The prototype supports two complementary modes: fast, system-guided selection for everyday use and direct spatial adjustment for drivers who need more control."
 
   - type: "interaction-grid"
-    intro: "The prototype supports two complementary modes: fast, system-guided selection for everyday use and direct spatial adjustment for drivers who need more control."
     items:
       - title: "Tap mode"
-        description: "A fast, predictable path that fills available slots sequentially and offers replacement or removal when capacity is reached."
+        description: "A fast, predictable path for routine use. The system fills available slots sequentially, then offers replacement or removal when capacity is reached."
         image:
           src: "assets/img/portfolio/bmw-particle/tap2.png"
           alt: "Tap mode interaction"
           caption: "System-guided selection for routine use."
       - title: "Drag mode"
-        description: "A flexible spatial path that identifies valid drop areas and triggers placement, replacement, or layout rearrangement on release."
+        description: "A flexible, spatial path for deliberate adjustment. It identifies valid drop areas and triggers placement, replacement, or layout rearrangement on release."
         image:
           src: "assets/img/portfolio/bmw-particle/drag2.png"
           alt: "Drag mode interaction"
@@ -201,10 +200,11 @@ blocks:
   - type: "paragraph"
     title: "Key Takeaways & Next Steps"
     paragraphs:
-      - "This high-fidelity prototype supported subsequent user testing and stakeholder meetings. Across multiple rounds of individual interviews and focus groups, <strong>93% of participants</strong> were able to understand and complete the core interactions without difficulty."
-      - "Although participants had varied expectations for AI generation, the overall workflow remained intuitive and engaging. The AIGC transition animations received consistently positive feedback and noticeably improved the experience during wait times."
-      - "The study showed that a familiar particle framework can make a new GenAI capability understandable without diluting the BMW interaction language. Clear entry points, guided generation styles, and visible placement feedback were central to that result."
-      - "Next, I would validate the cross-device My BMW App handoff in a longer in-car trial, compare style-selection comprehension across entry methods, and measure whether the feature remains useful after the initial novelty wears off."
+      - "<h5>What the prototype proved</h5>"
+      - "A familiar interaction framework can make a new GenAI capability feel immediately learnable. In user interviews and focus groups, 93% of participants understood and completed the core interactions without difficulty."
+      - "Even though drivers had different expectations for AI generation, the shared workflow remained intuitive and engaging. The AIGC transition animations received consistently positive feedback, turning an unavoidable wait into a more reassuring part of the experience."
+      - "<h5>What I would validate next</h5>"
+      - "I would test the My BMW App handoff in a longer in-car trial, compare style-selection comprehension across all three entry points, and measure whether the feature remains valuable once the initial novelty has worn off."
 
   - type: "embed"
     title: "Official Trailer for GenAI Particle"

@@ -161,7 +161,7 @@ function getAssetUrl(src) {
               {
                 blocks.map((block, index) => (
                   <div
-                    class={`row project-block${index === 0 ? " project-block--first" : ""}${index > 0 ? " project-block--after" : ""}${isMediaBlock(block) ? " project-block--media" : ""}${block.type === "decision" ? " project-block--decision" : ""}${block.type === "embed" ? " project-block--embed" : ""}${hasBlockTitle(block) && index > 0 ? " project-block--section" : ""}${index > 0 && isMediaBlock(blocks[index - 1]) && hasSubheading(block) ? " project-block--subheading-after-media" : ""}${isDisclaimer(block) ? " project-block--disclaimer" : ""}`}
+                    class={`row project-block${index === 0 ? " project-block--first" : ""}${index > 0 ? " project-block--after" : ""}${isMediaBlock(block) ? " project-block--media" : ""}${block.type === "decision" ? " project-block--decision" : ""}${block.type === "interaction-grid" ? " project-block--interaction" : ""}${block.type === "embed" ? " project-block--embed" : ""}${hasBlockTitle(block) && index > 0 ? " project-block--section" : ""}${index > 0 && isMediaBlock(blocks[index - 1]) && hasSubheading(block) ? " project-block--subheading-after-media" : ""}${isDisclaimer(block) ? " project-block--disclaimer" : ""}`}
                   >
                     <div class="col-12 col-lg-10 offset-lg-1 descrip-section" style="padding-top: 0; padding-bottom: 0;">
                       {block.title ? <h2 class="project-block__title">{block.title}</h2> : null}
@@ -256,7 +256,7 @@ function getAssetUrl(src) {
                                       <p>{item.description}</p>
                                     </div>
                                     <ol class="project-workflow__steps" aria-label={`${item.title} steps`}>
-                                      {item.steps.map((step) => <li>{step}</li>)}
+                                      {item.steps.map((step, stepIndex) => <li><span>{String(stepIndex + 1).padStart(2, "0")}</span>{step}</li>)}
                                     </ol>
                                   </article>
                                 ))
@@ -591,6 +591,10 @@ function getAssetUrl(src) {
     margin-top: 2.25rem;
   }
 
+  .project-block--interaction {
+    margin-top: 0.25rem;
+  }
+
   .project-decision {
     padding: clamp(1.5rem, 3vw, 2.5rem);
     border: 1px solid rgba(15, 23, 42, 0.12);
@@ -784,10 +788,21 @@ function getAssetUrl(src) {
   }
 
   .project-workflow__connector {
-    width: 1px;
+    position: relative;
+    width: calc(100% - 4rem);
     height: 2rem;
-    margin: 0 auto;
+    margin: 0 2rem;
+    border-bottom: 1px solid #94a3b8;
+  }
+
+  .project-workflow__connector::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
     background: #94a3b8;
+    content: "";
   }
 
   .project-workflow__items {
@@ -839,6 +854,7 @@ function getAssetUrl(src) {
   .project-workflow__steps li {
     position: relative;
     padding: 0.65rem 0.75rem;
+    border-radius: 0.55rem;
     background: #e4f5f0;
     color: #126b56;
     font-size: 0.85rem;
@@ -853,6 +869,102 @@ function getAssetUrl(src) {
     height: 0.75rem;
     background: #94a3b8;
     content: "";
+  }
+
+  /* Shared framework followed by three self-contained creation paths. */
+  .project-workflow {
+    padding: 0;
+    background: transparent;
+  }
+
+  .project-workflow__root {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 0 1.5rem;
+    padding: 0.85rem 1rem;
+    border-radius: 0.8rem;
+    background: #0f172a;
+  }
+
+  .project-workflow__root::after {
+    color: rgba(255, 255, 255, 0.7);
+    content: "Shared generation framework";
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .project-workflow__connector {
+    display: none;
+  }
+
+  .project-workflow__items {
+    gap: 1.25rem;
+  }
+
+  .project-workflow__item {
+    padding: 1.25rem;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-radius: 1rem;
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.96), rgba(255, 255, 255, 0.98));
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+    text-align: left;
+  }
+
+  .project-workflow__item::before {
+    display: none;
+  }
+
+  .project-workflow__function {
+    padding: 0 0 1rem;
+    border-top: 0;
+    border-bottom: 1px solid #d8e0e5;
+    background: transparent;
+  }
+
+  .project-workflow__item h3 {
+    margin-bottom: 0.45rem;
+    font-size: 1rem;
+  }
+
+  .project-workflow__steps {
+    gap: 0;
+    margin-top: 1rem;
+  }
+
+  .project-workflow__steps li {
+    display: grid;
+    grid-template-columns: 1.8rem 1fr;
+    gap: 0.6rem;
+    align-items: center;
+    padding: 0.7rem 0;
+    border-radius: 0;
+    background: transparent;
+    color: #334155;
+  }
+
+  .project-workflow__steps li span {
+    display: grid;
+    width: 1.8rem;
+    height: 1.8rem;
+    place-items: center;
+    border-radius: 50%;
+    background: #e4f5f0;
+    color: #126b56;
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+
+  .project-workflow__steps li:not(:last-child)::after {
+    top: 2.5rem;
+    bottom: auto;
+    left: 0.88rem;
+    width: 1px;
+    height: 0.75rem;
+    background: #cbd5e1;
   }
 
   .project-research {
@@ -982,6 +1094,10 @@ function getAssetUrl(src) {
     color: #475569;
   }
 
+  .project-interaction-grid {
+    padding: 30px 0;
+  }
+
   .project-interaction-grid__items {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1012,6 +1128,7 @@ function getAssetUrl(src) {
   .project-interaction-grid__item a {
     display: block;
     overflow: hidden;
+    aspect-ratio: 1 / 1;
     border-radius: 0.8rem;
     box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
   }
@@ -1019,6 +1136,9 @@ function getAssetUrl(src) {
   .project-interaction-grid__item img {
     display: block;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   @media (max-width: 575.98px) {
@@ -1037,6 +1157,21 @@ function getAssetUrl(src) {
 
   .project-block__title {
     margin: 0 0 0.75rem;
+  }
+
+  .project-block .descrip-section h5 {
+    margin: 2rem 0 0.65rem;
+    padding-left: 0.75rem;
+    border-left: 3px solid #20b38e;
+    color: #0f172a;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .project-block .descrip-section h5:first-child {
+    margin-top: 0.25rem;
   }
 
   /* 强化关闭按钮，超大X、清晰可见 */
