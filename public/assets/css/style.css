@@ -896,7 +896,38 @@ section {
 }
 
 .portfolio .portfolio-item .portfolio-img {
+  position: relative;
   overflow: hidden;
+}
+
+.portfolio .portfolio-item .portfolio-topic {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  box-sizing: border-box;
+  display: flex;
+  width: 4.375rem;
+  padding: 0.275rem 0.45rem;
+  align-items: center;
+  justify-content: center;
+  background: #edc144;
+  color: #fff;
+  font-size: 0.725rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+@media (max-width: 575.98px) {
+  .portfolio .portfolio-item .portfolio-topic {
+    width: 3.25rem;
+    padding: 0.225rem 0.35rem;
+    font-size: 0.55rem;
+  }
 }
 
 .portfolio .portfolio-item .portfolio-img img {

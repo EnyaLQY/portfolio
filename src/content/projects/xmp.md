@@ -122,6 +122,12 @@ blocks:
         alt: "High-fidelity XMP prototype"
         caption: "The high-fidelity prototype brought the research narrative and interaction model together."
 
+  - type: "image"
+    image:
+      src: "assets/img/portfolio/xmp/design_system.png"
+      alt: "Affinity diagram for the labeling experience"
+      maxWidth: "100%"
+
   - type: "research-grid"
     title: "User Testing"
     eyebrow: "Moderated usability evaluation"

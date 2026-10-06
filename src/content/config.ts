@@ -234,6 +234,7 @@ const home = defineCollection({
         href: z.string(),
         title: z.string(),
         subtitle: z.string(),
+        topic: z.string(),
         image: z.string(),
         filters: z.string(),
         previewHref: z.string().optional(),

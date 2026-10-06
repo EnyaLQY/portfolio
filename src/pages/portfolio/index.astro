@@ -4,7 +4,7 @@ import path from "node:path";
 import { getEntry } from "astro:content";
 import PortfolioItemCard from "../../components/PortfolioItemCard.astro";
 
-const legacyPath = path.join(process.cwd(), "public/portfolio/index.html");
+const legacyPath = path.join(process.cwd(), "src/templates/portfolio/index.html");
 const legacyHtml = fs.readFileSync(legacyPath, "utf8");
 const base = import.meta.env.BASE_URL;
 
