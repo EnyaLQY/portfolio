@@ -161,7 +161,7 @@ function getAssetUrl(src) {
               {
                 blocks.map((block, index) => (
                   <div
-                    class={`row project-block${index === 0 ? " project-block--first" : ""}${index > 0 ? " project-block--after" : ""}${isMediaBlock(block) ? " project-block--media" : ""}${block.type === "decision" ? " project-block--decision" : ""}${block.type === "interaction-grid" ? " project-block--interaction" : ""}${block.type === "question-grid" ? " project-block--question-grid" : ""}${block.type === "embed" ? " project-block--embed" : ""}${hasBlockTitle(block) && index > 0 ? " project-block--section" : ""}${index > 0 && isMediaBlock(blocks[index - 1]) && hasSubheading(block) ? " project-block--subheading-after-media" : ""}${isDisclaimer(block) ? " project-block--disclaimer" : ""}`}
+                    class={`row project-block${index === 0 ? " project-block--first" : ""}${index > 0 ? " project-block--after" : ""}${isMediaBlock(block) ? " project-block--media" : ""}${block.type === "decision" ? " project-block--decision" : ""}${block.type === "interaction-grid" ? " project-block--interaction" : ""}${block.type === "question-grid" ? " project-block--question-grid" : ""}${block.type === "card-grid" ? " project-block--card-grid" : ""}${block.type === "embed" ? " project-block--embed" : ""}${hasBlockTitle(block) && index > 0 ? " project-block--section" : ""}${index > 0 && isMediaBlock(blocks[index - 1]) && hasSubheading(block) ? " project-block--subheading-after-media" : ""}${isDisclaimer(block) ? " project-block--disclaimer" : ""}`}
                   >
                     <div class="col-12 col-lg-10 offset-lg-1 descrip-section" style="padding-top: 0; padding-bottom: 0;">
                       {block.title ? <h2 class="project-block__title">{block.title}</h2> : null}
@@ -366,6 +366,76 @@ function getAssetUrl(src) {
                       }
 
                       {
+                        block.type === "card-grid" ? (
+                          <section class={`project-card-grid project-card-grid--${block.layout || "auto"}`}>
+                            {
+                              block.items.map((item) => (
+                                <article class="project-card-grid__item">
+                                  {item.label ? <p>{item.label}</p> : null}
+                                  <h3>{item.title}</h3>
+                                  {item.description ? <div set:html={item.description}></div> : null}
+                                </article>
+                              ))
+                            }
+                          </section>
+                        ) : null
+                      }
+
+                      {
+                        block.type === "process-grid" ? (
+                          <section class={`project-process-grid project-process-grid--${block.layout || "2"}`}>
+                            {
+                              block.approaches.map((approach) => (
+                                <article class="project-process-grid__item">
+                                  <p>{approach.label}</p>
+                                  <h3>{approach.title}</h3>
+                                  {approach.description ? <div class="project-process-grid__description" set:html={approach.description}></div> : null}
+                                  <ol>
+                                    {approach.steps.map((step, stepIndex) => <li><span>{String(stepIndex + 1).padStart(2, "0")}</span>{step}</li>)}
+                                  </ol>
+                                  {
+                                    approach.image ? (
+                                      <figure class="project-process-grid__visual">
+                                        <a href={getAssetUrl(approach.image.src)} data-glightbox="single"><img src={getAssetUrl(approach.image.src)} alt={approach.image.alt || approach.title} /></a>
+                                        {approach.image.caption ? <figcaption>{approach.image.caption}</figcaption> : null}
+                                      </figure>
+                                    ) : null
+                                  }
+                                </article>
+                              ))
+                            }
+                          </section>
+                        ) : null
+                      }
+
+                      {
+                        block.type === "comparison-grid" ? (
+                          <section class="project-comparison-grid">
+                            {
+                              block.items.map((item) => (
+                                <article class="project-comparison-grid__item">
+                                  <p class="project-comparison-grid__label">{item.label}</p>
+                                  <h3>{item.title}</h3>
+                                  <div class="project-comparison-grid__columns">
+                                    <div><h4>Strengths</h4><ul>{item.strengths.map((strength) => <li>{strength}</li>)}</ul></div>
+                                    <div><h4>Trade-offs</h4><ul>{item.tradeoffs.map((tradeoff) => <li>{tradeoff}</li>)}</ul></div>
+                                  </div>
+                                  {
+                                    item.image ? (
+                                      <>
+                                        <a href={getAssetUrl(item.image.src)} data-glightbox="single"><img src={getAssetUrl(item.image.src)} alt={item.image.alt || item.title} /></a>
+                                        {item.image.caption ? <p class="project-image-caption">{item.image.caption}</p> : null}
+                                      </>
+                                    ) : null
+                                  }
+                                </article>
+                              ))
+                            }
+                          </section>
+                        ) : null
+                      }
+
+                      {
                         block.type === "image" ? (
                           <div>
                             <a href={getAssetUrl(block.image.src)} data-glightbox="single" style="display:block;cursor:zoom-in;">
@@ -492,7 +562,7 @@ function getAssetUrl(src) {
 
                       {
                         block.type === "quote" ? (
-                          <blockquote style="border-left: 4px solid #20b38e; padding-left: 1rem; color: #444;">
+                          <blockquote style="border-left: 4px solid var(--project-accent); padding-left: 1rem; color: #444;">
                             <RichText text={block.text} paragraphs={block.paragraphs} />
                             {block.author ? <cite>{block.author}</cite> : null}
                           </blockquote>
@@ -538,6 +608,13 @@ function getAssetUrl(src) {
   <SiteFooter />
 
 <style is:inline>
+  #main {
+    --project-accent: #8a5200;
+    --project-accent-ink: #6b3f00;
+    --project-accent-soft: #fff1cc;
+    --project-accent-wash: rgba(255, 183, 39, 0.16);
+  }
+
   .project-block--first {
     margin-top: 3rem;
   }
@@ -618,6 +695,10 @@ function getAssetUrl(src) {
     margin-top: 0.5rem;
   }
 
+  .project-block--card-grid {
+    margin-top: 0.5rem;
+  }
+
   .project-decision {
     padding: clamp(1.5rem, 3vw, 2.5rem);
     border: 1px solid rgba(15, 23, 42, 0.12);
@@ -636,7 +717,7 @@ function getAssetUrl(src) {
 
   .project-decision__label {
     margin: 0 0 0.65rem;
-    color: #20b38e;
+    color: var(--project-accent);
     font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 0.12em;
@@ -660,8 +741,8 @@ function getAssetUrl(src) {
   .project-decision__outcome {
     margin: 1.25rem 0 0;
     padding: 0.85rem 1rem !important;
-    border-left: 3px solid #20b38e;
-    background: rgba(32, 179, 142, 0.08);
+    border-left: 3px solid var(--project-accent);
+    background: var(--project-accent-wash);
     color: #334155;
   }
 
@@ -685,7 +766,7 @@ function getAssetUrl(src) {
 
   .project-data-chart {
     padding: clamp(1.5rem, 3vw, 2.5rem);
-    border-top: 3px solid #20b38e;
+    border-top: 3px solid var(--project-accent);
     background: #f8fafc;
   }
 
@@ -695,7 +776,7 @@ function getAssetUrl(src) {
 
   .project-data-chart__eyebrow {
     margin: 0 0 0.5rem;
-    color: #20b38e;
+    color: var(--project-accent);
     font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 0.12em;
@@ -744,7 +825,7 @@ function getAssetUrl(src) {
     display: block;
     height: 100%;
     border-radius: inherit;
-    background: #20b38e;
+    background: #ffb727;
   }
 
   .project-data-chart__detail,
@@ -851,7 +932,7 @@ function getAssetUrl(src) {
 
   .project-workflow__function {
     padding: 1.25rem;
-    border-top: 2px solid #20b38e;
+    border-top: 2px solid var(--project-accent);
     background: #fff;
   }
 
@@ -878,8 +959,8 @@ function getAssetUrl(src) {
     position: relative;
     padding: 0.65rem 0.75rem;
     border-radius: 0.55rem;
-    background: #e4f5f0;
-    color: #126b56;
+    background: var(--project-accent-soft);
+    color: var(--project-accent-ink);
     font-size: 0.85rem;
     font-weight: 600;
   }
@@ -981,8 +1062,8 @@ function getAssetUrl(src) {
     height: 1.8rem;
     place-items: center;
     border-radius: 50%;
-    background: #e4f5f0;
-    color: #126b56;
+    background: var(--project-accent-soft);
+    color: var(--project-accent-ink);
     font-size: 0.7rem;
     font-weight: 800;
   }
@@ -1011,7 +1092,7 @@ function getAssetUrl(src) {
   .project-research__eyebrow,
   .project-research__label {
     margin: 0 0 0.4rem;
-    color: #20b38e;
+    color: var(--project-accent);
     font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 0.1em;
@@ -1187,7 +1268,7 @@ function getAssetUrl(src) {
   .project-question-grid__item p {
     margin: 0 0 0.75rem;
     padding-top: 0 !important;
-    color: #20b38e;
+    color: var(--project-accent);
     font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 0.1em;
@@ -1201,6 +1282,153 @@ function getAssetUrl(src) {
     line-height: 1.4;
   }
 
+  .project-card-grid,
+  .project-process-grid,
+  .project-comparison-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .project-card-grid--auto { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+  .project-card-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project-card-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .project-card-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .project-card-grid--2x2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project-process-grid--2,
+  .project-comparison-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .project-process-grid--1x2 { grid-template-columns: minmax(0, 1fr); }
+  .project-process-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .project-process-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  .project-card-grid__item,
+  .project-process-grid__item,
+  .project-comparison-grid__item {
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-radius: 1.25rem;
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.96), rgba(255, 255, 255, 0.98));
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
+  }
+
+  .project-card-grid__item > p,
+  .project-process-grid__item > p,
+  .project-comparison-grid__label {
+    margin: 0 0 0.65rem;
+    padding-top: 0 !important;
+    color: var(--project-accent);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .project-card-grid__item h3,
+  .project-process-grid__item h3,
+  .project-comparison-grid__item h3 {
+    margin: 0 0 0.75rem;
+    color: #0f172a;
+    font-size: 1.15rem;
+    line-height: 1.35;
+  }
+
+  .project-card-grid__item div,
+  .project-process-grid__description {
+    color: #475569;
+  }
+
+  .project-process-grid__item ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.25rem 1rem;
+    margin: 1.25rem 0 0;
+    padding: 1rem 0 0;
+    border-top: 1px solid #d8e0e5;
+    list-style: none;
+  }
+
+  .project-process-grid__visual {
+    margin: 1.25rem 0 0;
+  }
+
+  .project-process-grid__visual a {
+    display: block;
+    overflow: hidden;
+    border-radius: 0.8rem;
+    background: #f1f5f9;
+  }
+
+  .project-process-grid__visual img {
+    display: block;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .project-process-grid__visual figcaption {
+    margin: 0.55rem 0 0;
+    color: #64748b;
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .project-process-grid__item li {
+    display: grid;
+    grid-template-columns: 1.75rem 1fr;
+    gap: 0.55rem;
+    align-items: center;
+    padding: 0.55rem 0;
+    color: #334155;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .project-process-grid__item li span {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--project-accent-soft);
+    color: var(--project-accent-ink);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .project-comparison-grid__columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .project-comparison-grid h4 {
+    margin: 0 0 0.5rem;
+    color: #0f172a;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+  }
+
+  .project-comparison-grid ul {
+    margin: 0;
+    padding-left: 1rem;
+    color: #475569;
+    font-size: 0.9rem;
+  }
+
+  .project-comparison-grid li + li { margin-top: 0.45rem; }
+
+  .project-comparison-grid__item > a {
+    display: block;
+    overflow: hidden;
+    margin-top: 1.25rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+  }
+
+  .project-comparison-grid__item > a img {
+    display: block;
+    width: 100%;
+  }
+
   @media (max-width: 575.98px) {
     .project-data-chart__metric-header {
       grid-template-columns: 1fr;
@@ -1211,7 +1439,20 @@ function getAssetUrl(src) {
     .project-research__setup,
     .project-research__metrics,
     .project-interaction-grid__items,
-    .project-question-grid {
+    .project-question-grid,
+    .project-card-grid--2,
+    .project-card-grid--3,
+    .project-card-grid--4,
+    .project-card-grid--2x2,
+    .project-process-grid--2,
+    .project-process-grid--3,
+    .project-process-grid--4,
+    .project-comparison-grid,
+    .project-comparison-grid__columns {
+      grid-template-columns: 1fr;
+    }
+
+    .project-process-grid__item ol {
       grid-template-columns: 1fr;
     }
   }
@@ -1223,7 +1464,7 @@ function getAssetUrl(src) {
   .project-block .descrip-section h5 {
     margin: 2rem 0 0.65rem;
     padding-left: 0.75rem;
-    border-left: 3px solid #20b38e;
+    border-left: 3px solid var(--project-accent);
     color: #0f172a;
     font-size: 0.9rem;
     font-weight: 800;

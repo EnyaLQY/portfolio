@@ -2,87 +2,117 @@
 title: "BMW - MBE Hardware Prototyping"
 category: "Hardware Prototyping"
 Topic: "Innovation Project"
-timeline: "undisclosed"
-summary: ""
+timeline: "Undisclosed"
+summary: "Localized BMW's Multi-Button Element concept as a compact, reusable hardware prototype for interaction testing and stakeholder demonstrations."
 heroGallery:
   - src: "assets/img/portfolio/bmw-mbe/PROJECT4.png"
-    alt: ""
+    alt: "BMW MBE hardware prototype on a steering-wheel mockup"
 info:
   role: "UX Prototyper"
-  tools: "Coding (Arduino, Android), Protocol engineering (UDP, MQTT)"
+  tools: "Arduino, Android, UDP, MQTT, 3D Printing"
 blocks:
   - type: "paragraph"
-    title: "Overview"
+    title: "Project Background"
     paragraphs:
-      - "<h5>Rebuilding BMW's MBE concept for local prototyping and stakeholder demonstration.</h5>"
-      - "BMW's Innovation team in Germany developed an experimental MBE (Multi-Button Element) concept that integrated physical input with the vehicle's digital interfaces. To enable local testing and stakeholder demonstrations, our Shanghai team was asked to recreate the system using the hardware available locally. The challenge was that the German prototype was built around a highly customized steering-wheel mockup that was significantly different from ours. Many of its components and mechanical structures were also unavailable locally."
-      - "Instead of trying to replicate the German setup exactly, I helped rethink the system around our existing hardware—redesigning the electronics, rethinking the sensing mechanism, and developing custom physical components to create a reusable local prototype."
-  - type: "paragraph"
-    title: "The Challenge"
-    paragraphs:
-      - "<h5>How do we recreate the same interaction on a completely different hardware platform?</h5>"
-      - "The original German prototype had already been carefully engineered around their custom steering wheel. Following their documentation, we initially tried to identify a similar steering-wheel mockup that could be modified locally."
-      - "However, we quickly encountered several constraints:"
-      - "<ul><li>The available steering-wheel mockup was significantly smaller.</li><li>The original mechanical structure was not present.</li><li>Several components from the German prototype were unavailable locally.</li><li>Importing a similar customized mockup would be expensive and difficult.</li><li>The prototype needed to remain practical for repeated demonstrations and testing.</li></ul>"
-      - "<p>This meant that <strong>replicating the original hardware was not a realistic solution.</strong> We needed to <strong>preserve the interaction concept</strong>, rather than the original implementation.</p>"
+      - "<strong>How might we recreate BMW's MBE interaction concept when the original prototype, components, and steering-wheel architecture are unavailable locally?</strong>"
+      - "BMW's Innovation team in Germany developed an experimental Multi-Button Element (MBE) that combined physical input with the vehicle's digital interfaces. For local testing and stakeholder demonstrations, the Shanghai team needed a functional version built from the hardware available to us."
+      - "The original setup was designed around a highly customized steering-wheel mockup. Rather than copy its form exactly, I helped translate its interaction logic into a compact, reusable local prototype."
+
+  - type: "card-grid"
+    layout: "3"
+    items:
+      - label: "Constraint 01"
+        title: "Different form factor"
+        description: "The locally available steering-wheel mockup was substantially smaller than the original and could not accommodate its internal structure."
+      - label: "Constraint 02"
+        title: "Missing components"
+        description: "Several mechanical parts and customized components from the German prototype were unavailable for local sourcing."
+      - label: "Constraint 03"
+        title: "Demonstration-ready"
+        description: "The outcome had to remain dependable, rechargeable, and practical for repeated testing and stakeholder demos."
+
   - type: "paragraph"
     title: "Reframing the Problem"
     paragraphs:
-      - "<p>Instead of asking:<strong> How can we reproduce the German hardware?</strong></p>"
-      - "<p>we reframed the problem as:<strong> How can we reproduce the same interaction with the hardware and constraints we have?</strong></p>"
-      - "<p>This became the guiding principle for the rest of the project.Our goal was therefore to preserve this interaction flow while redesigning everything underneath it."
+      - "The initial question was not <strong>“How can we reproduce the German hardware?”</strong> It became: <strong>“How can we preserve the same interaction with the hardware and constraints we have?”</strong>"
+      - "This shift gave the team permission to redesign the electronics, sensing mechanism, and physical enclosure while keeping the intended interaction flow intact."
+
   - type: "image"
     image:
       src: "assets/img/portfolio/bmw-mbe/diagram.png"
-      alt: ""
+      alt: "MBE hardware and digital interaction architecture"
+      caption: "The local architecture preserved the original input-to-HMI interaction flow while replacing the unavailable physical implementation."
+      maxWidth: "100%"
+
   - type: "paragraph"
-    title: "Rebuilding the Hardware Architecture"
+    title: "Prototype Development"
     paragraphs:
-      - "<p>The system needed to detect physical input from the MBE and communicate it to the software simulation. However, once we started assembling the hardware, we discovered a fundamental problem: There simply wasn't enough space inside our smaller steering-wheel mockup. The original electronics could not physically fit. Rather than changing the steering wheel again, we redesigned the PCB into a much smaller form factor and selected a smaller rechargeable battery that could be easily removed and replaced.his solved two problems at once:</p>"
-      - "<ul><li>Reduced the footprint enough to fit inside the mockup.</li><li>Made the prototype easier to recharge and reuse for future demonstrations.</li></ul>"
-  - type: "image"
-    image:
-      src: "assets/img/portfolio/bmw-mbe/pcb.png"
-      alt: ""
+      - "The work progressed through two connected hardware tracks: making the electronics fit the new steering wheel, then turning the smartwatch into a reliable and maintainable physical control."
+
+  - type: "process-grid"
+    layout: "1x2"
+    approaches:
+      - label: "Iteration 01"
+        title: "Miniaturize the electronics"
+        description: "The original PCB and battery could not fit inside the smaller mockup. I redesigned the electronics around a smaller PCB and a removable rechargeable battery."
+        steps:
+          - "Measure usable interior space"
+          - "Reduce the PCB footprint"
+          - "Select a compact removable battery"
+          - "Validate fit and repeatable charging"
+        image:
+          src: "assets/img/portfolio/bmw-mbe/pcb.png"
+          alt: "Compact PCB and battery hardware prototype"
+          caption: "A reduced electronics footprint made the prototype fit inside the local steering-wheel mockup."
+      - label: "Iteration 02"
+        title: "Make physical input dependable"
+        description: "Without the original lever mechanism, I designed a compact rubber-coupling solution and a removable 3D-printed MBE housing for stable input and easier maintenance."
+        steps:
+          - "Test rubber size and pressure transfer"
+          - "Tune tactile response and sensor sensitivity"
+          - "Design the internal support structure"
+          - "Add magnetic, snap-fit mounting"
+        image:
+          src: "assets/img/portfolio/bmw-mbe/mbe.png"
+          alt: "3D-printed BMW MBE smartwatch housing"
+          caption: "The final enclosure balanced secure mounting, quick removal for charging, and a presentation-ready finish."
+
   - type: "paragraph"
-    title: "Rethinking the Sensor Mechanism"
+    title: "Sensor Tuning"
     paragraphs:
-      - "The German prototype used an existing lever mechanism inside their steering wheel to physically trigger the sensor. Our steering wheel didn't have this mechanism. There was also not enough space to recreate it. We needed a completely different way to transfer the user's physical input to the sensor."
-      - "We introduced two small pieces of rubber between the smartwatch and the sensor. When the user pressed the MBE, the deformation of the rubber transferred pressure to the sensor while requiring very little physical space. But this solution introduced a new challenge: How much rubber was enough?</p>"
-      - "<ul><li>Too thick or too large: the button became difficult to press → the sensor could trigger too easily</li><li>Too thin or too small: insufficient pressure reached the sensor → inputs became unreliable</li></ul>"
-      - "We iterated through multiple rubber sizes and configurations to find the right balance between available space, tactile response, and sensor sensitivity. This became one of the most iterative parts of the project."
+      - "The original prototype used an internal lever to trigger its sensor, but the local mockup had neither the mechanism nor enough room to recreate it. Two small rubber pieces between the smartwatch and sensor became a compact pressure-transfer layer."
+      - "This required careful iteration: too much material made the button difficult to press or overly sensitive; too little produced unreliable input. The final configuration balanced available space, tactile feedback, and trigger reliability."
+
   - type: "image"
     image:
       src: "assets/img/portfolio/bmw-mbe/sensor.png"
-      alt: ""  
-  - type: "paragraph"
-    title: "Designing the Physical MBE"
-    paragraphs:
-      - "Once the sensing mechanism was working, we needed to integrate the smartwatch into a usable physical interface. The bottom of the watch was not flat, so simply attaching it to the steering wheel wasn't practical. Thus, we designed and 3D-printed an external housing and internal structural support.The watch also needed to be removed frequently for charging. So instead of permanently attaching it, we introduced a magnetic mounting mechanism, combined with a custom snap-fit structure. This allowed the watch to:"
-      - "<ul>\n<li>Stay securely attached during interaction</li><li>Be quickly removed when needed</li><li>Be reinstalled without realignment</li></ul>"
-      - "During development, we experimented with a transparent enclosure because it made the internal mechanism much easier to inspect and debug. However, once the system was stable, we switched to a solid black enclosure for stakeholder demonstrations. This was a small but important design decision: <strong>The prototype needed to function as both a development tool and a convincing demonstration artifact.</strong> For remote debugging and control, we also used ADB commands to operate the Android smartwatch without physically interacting with it."
-  - type: "image"
-    image:
-      src: "assets/img/portfolio/bmw-mbe/mbe.png"
-      alt: ""  
+      alt: "Rubber-coupled sensor mechanism for the MBE prototype"
+      caption: "A compact rubber interface translated physical press force to the sensor without recreating the original lever assembly."
+      maxWidth: "100%"
+
   - type: "two-column"
     title: "Connecting Hardware to the Digital Experience"
     layout: "2-1"
     left:
       kind: "text"
       paragraphs:
-        - "Once the hardware could reliably detect input, the final challenge was translating that physical interaction into the existing software system. The smartwatch provided touch coordinates corresponding to:"
-        - "<ul>\n<li>Four directional inputs</li><li>One confirmation input</li></ul>"
-        - "By reading these coordinates through Android code, we could determine which MBE action the user had performed. The input was then translated into signals that could control the other simulation components, including the Driving Display and Panoramic Vision. Rather than rebuilding the software architecture from scratch, I recompiled and adapted the existing code from the German team, simplifying the coordinate-detection logic so that it worked with our redesigned hardware solution. This allowed us to preserve the original interaction logic while adapting the implementation to our new physical setup."
+        - "Once hardware input was reliable, the final task was translating it into the existing vehicle-HMI simulation. The smartwatch exposed touch coordinates for four directional inputs and one confirmation action."
+        - "I adapted the German team's existing Android code to interpret those coordinates on the redesigned hardware, then passed the resulting signals to the Driving Display and Panoramic Vision simulations. This retained the original interaction logic without rebuilding the software system from scratch."
     right:
       kind: "image"
       image:
         src: "assets/img/portfolio/bmw-mbe/coordinate.png"
+        alt: "Smartwatch touch-coordinate mapping for MBE controls"
+
   - type: "paragraph"
-    title: "Final Result & Reflection"
+    title: "Outcome & Reflection"
     paragraphs:
-      - "We successfully localized the German MBE system for the Shanghai team, creating a compact and reusable prototype that could reliably detect physical input and trigger the corresponding vehicle HMI simulations. The system was used for software testing and stakeholder demonstrations, without relying on the original German hardware setup."
-      - "More importantly, the project <strong>strengthened my ability to approach unfamiliar problems through iterative prototyping and cross-disciplinary problem solving</strong>. From redesigning the electronics and sensing mechanism to adapting the software and physical enclosure, I learned to work within real-world constraints while keeping the intended user experience at the center. It also reinforced my belief that prototyping is not about simply reproducing an existing solution, but about <strong>finding the right way to make an experience tangible, testable, and convincing.</strong>"
+      - "The Shanghai team received a compact, reusable MBE prototype that reliably detected physical input and controlled the target HMI simulations. It supported both software testing and stakeholder demonstrations without depending on the original German hardware."
+      - "<h5>Prototype for the real context</h5>"
+      - "The key outcome was not an exact replica. It was a credible interaction prototype shaped around local tools, constraints, and maintenance needs."
+      - "<h5>Make interaction tangible</h5>"
+      - "The project reinforced that prototyping is a cross-disciplinary practice: electronics, mechanics, code, and experience design all need to work together before an interaction can be tested and believed."
+
   - type: "paragraph"
     paragraphs:
       - "<strong>Disclaimer:</strong> All materials are presented solely to demonstrate design thinking and process, and do not represent the actual product."

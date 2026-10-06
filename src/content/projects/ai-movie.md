@@ -3,98 +3,139 @@ title: "BMW - Gen-AI Festive Movie"
 category: "Design Exploration"
 Topic: "Design Exploration"
 timeline: "2025.12"
-summary: "Integrating AIGC with BMW branding, we design customizable AI Particle framework and developed high-fidelity prototype for usability testing."
+summary: "Explored how generative AI can accelerate localized BMW festive-film production while maintaining cultural relevance, brand consistency, and human creative control."
 heroGallery:
   - src: "assets/img/portfolio/bmw-movie/PROJECT3.png"
-    alt: ""
+    alt: "BMW Gen-AI festive movie concept"
 info:
   role: "UX Designer & Prototyper"
-  tools: "CapCut, Figma, Adobe Photoshop, Adobe Premiere, Coding (Python)"
+  tools: "CapCut, Figma, Adobe Photoshop, Adobe Premiere, Python"
 blocks:
   - type: "paragraph"
     title: "Project Background"
     paragraphs:
-      - "This project started from a practical design challenge: With the rapid advancement of generative AI, how can AI optimize dynamic content creation workflows in UI/UX design and address existing business challenges?"
-      - "BMW needs to create localized festive video for cultural events across different global markets. However, the traditional production process requires collaboration across multiple stages, including script development, visual design, motion design, and post-production. This results in long production cycles, high resource costs, and limited scalability when supporting large volumes of localized content."
-      - "Based on this challenge, the project explored three key questions:"
-      - "<ul><li>Can AI improve the efficiency of dynamic content production?</li><li>Can AI-generated outputs achieve the required quality standards?</li><li>Can AI-generated content align with BMW’s brand identity and design language?</li></ul>"
-      - "Through this exploration, I investigated a more efficient content creation workflow by introducing AIGC technologies, and evaluated its feasibility and quality within a real-world design process."
+      - "<strong>How can generative AI improve dynamic-content production without compromising cultural relevance or BMW's design language?</strong>"
+      - "BMW creates localized festive films for cultural events across global markets. Traditional production requires coordinated scripting, visual design, motion design, and post-production, which creates long timelines, high resource costs, and limited scalability when many localized versions are needed."
+      - "This research explored whether AIGC could compress the production workflow while still meeting visual-quality expectations and retaining a recognizable BMW identity."
+
+  - type: "card-grid"
+    layout: "3"
+    items:
+      - label: "Research question 01"
+        title: "Production efficiency"
+        description: "Can AI improve the efficiency of dynamic-content production?"
+      - label: "Research question 02"
+        title: "Output quality"
+        description: "Can AI-generated output meet the expected quality bar?"
+      - label: "Research question 03"
+        title: "Brand alignment"
+        description: "Can generated content align with BMW's brand identity and design language?"
+
   - type: "image"
     image:
       src: "assets/img/portfolio/bmw-movie/reference.png"
-      alt: "Interaction Diagram"
-      caption: "BMW Festive Style"
+      alt: "BMW festive visual references"
+      caption: "BMW festive visual references established the brand and mood baseline."
+      maxWidth: "100%"
+
   - type: "paragraph"
     title: "Script & Frame Design"
     paragraphs:
-      - "For the experiment, I selected <strong>Diwali</strong>, a traditional Indian festival, as the case study. By intentionally choosing a relatively unfamiliar cultural context, I aimed to evaluate how AI performs when generating culturally relevant content without relying heavily on existing design references."
-      - "At the beginning of the project, I conducted foundational cultural research to identify key visual elements and symbolic characteristics of Diwali. These insights were translated into prompt strategies to guide the AI generation process."
-      - "Meanwhile, the overall visual direction was constrained by BMW’s existing design language to ensure consistency with the brand ecosystem and maintain a premium, recognizable experience."
+      - "For the experiment, I selected <strong>Diwali</strong> as the case study. Choosing a cultural context that was less familiar to the team made it possible to test whether AI could generate culturally relevant material without leaning heavily on pre-existing design references."
+      - "I began with cultural research to identify the festival's visual symbols, emotional cues, and storytelling opportunities. These findings informed the prompt strategy, while BMW's existing design language set the boundaries for a premium, coherent visual direction."
+
   - type: "image"
     image:
       src: "assets/img/portfolio/bmw-movie/storyboard.png"
-      alt: ""
+      alt: "Diwali festive movie storyboard"
+      caption: "A storyboard translated cultural research and BMW visual principles into a scene-by-scene generation plan."
+      maxWidth: "100%"
+
   - type: "paragraph"
-    title: "Movie Generating"
+    title: "Workflow Exploration"
     paragraphs:
-      - "I explored two distinct approaches to validate how AI empowers the video creation workflow."
+      - "I compared two production models to understand where AI could be most useful, where human intervention remained essential, and what each model meant for speed, quality, and creative control."
+
+  - type: "process-grid"
+    layout: "1x2"
+    approaches:
+      - label: "Approach 01"
+        title: "Fully AI-driven production"
+        description: "90% AI + 10% human. AI generated the core visual, motion, and music assets; manual work focused on final assembly."
+        steps:
+          - "Generate scene keyframes"
+          - "Create video sequences with prompts"
+          - "Generate transitions with keyframe control"
+          - "Edit and compose the final film"
+        image:
+          src: "assets/img/portfolio/bmw-movie/method1.png"
+          alt: "Fully AI-driven festive movie workflow"
+          caption: "A mostly AI-driven pipeline from scene keyframes to final assembly."
+      - label: "Approach 02"
+        title: "Hybrid production"
+        description: "50% AI + 50% human. AI accelerated asset exploration while designers curated, refined, and recomposed critical moments."
+        steps:
+          - "Generate early visual assets"
+          - "Curate and refine selected output"
+          - "Build reusable design elements"
+          - "Complete precise post-production"
+        image:
+          src: "assets/img/portfolio/bmw-movie/method2.png"
+          alt: "Hybrid AI and human festive movie workflow"
+          caption: "AI accelerates exploration while designers retain control over refinement and final composition."
+
   - type: "paragraph"
+    title: "Comparative Analysis"
     paragraphs:
-      - "<h5>Fully AI-driven Production (90% AI + 10% HUMAN)</h5>"
-      - "The first approach explored a fully AI-driven production pipeline, where AI generated the core visual and motion assets based on detailed scripts and storyboards. AI-generated music was also incorporated, with final video editing completed manually to assemble the complete experience."
-      - "The workflow included:"
-      - "<ul><li>Generating opening and closing keyframes for each scene based on the script</li><li>Using keyframes and prompts to generate AI-produced video sequences between scenes</li><li>Creating transitions between scenes through prompt-based generation and keyframe control</li><li>Performing final video editing and composition manually</li></ul>"
-      - "This approach explored the potential of AI as an autonomous content generation system, significantly reducing manual production effort."
-  - type: "image"
-    image:
-      src: "assets/img/portfolio/bmw-movie/method1.png"
-      alt: ""
+      - "I evaluated both approaches across visual quality, concept maturity, operational efficiency, and production cost. The comparison clarified not only which workflow was faster, but where human judgment creates the greatest value in an AI-assisted production process."
+
+  - type: "comparison-grid"
+    items:
+      - label: "Approach 01"
+        title: "Fully AI-driven"
+        strengths:
+          - "Rapid iteration and strong production efficiency"
+          - "Lower token consumption and generation cost"
+          - "Coherent scene structure and smooth transitions"
+        tradeoffs:
+          - "Fine-detail control remains limited by black-box generation"
+          - "Precise secondary changes are difficult after output is generated"
+        image:
+          src: "assets/img/portfolio/bmw-movie/downside1.png"
+          alt: "Limitations of fully AI-driven production"
+          caption: "The speed advantage came with less control over specific visual details."
+      - label: "Approach 02"
+        title: "Hybrid workflow"
+        strengths:
+          - "Faster early asset exploration with greater detail control"
+          - "Better visual consistency and reusable design assets"
+          - "More room for precise editing and brand refinement"
+        tradeoffs:
+          - "Higher token consumption and generation cost"
+          - "Transparent-background limitations increase post-processing work"
+          - "High-precision editing still needs meaningful manual effort"
+        image:
+          src: "assets/img/portfolio/bmw-movie/downside2.png"
+          alt: "Considerations in hybrid AI and human production"
+          caption: "The hybrid workflow increased control, but retained a meaningful refinement workload."
+
   - type: "paragraph"
-    title: "Analysis"
+    title: "Research Takeaways"
     paragraphs:
-      - "I conducted a comprehensive analysis of the two production approaches, evaluating their overall performance in terms of visual design quality, concept maturity, operational efficiency, and production costs. Through systematic comparison and validation, I further explored and summarized the optimal collaborative paradigm between designers and generative AI within the automotive content creation workflow."
-  - type: "two-column"
-    left:
-      kind: "text"
-      paragraphs:
-        - "<h5>Approach 1 (90% AI + 10% HUMAN)</h5>"
-        - "Pros:"
-        - "<ul><li>Significantly improves production efficiency and enables rapid iteration</li><li>Relatively low token consumption and generation cost</li><li>Produces high-quality outputs with coherent scene structures and smooth transitions</li></ul>"
-        - "Cons:"
-        - "<ul><li>Limited control over fine details due to the “black box” nature of AI generation</li><li>Difficult to perform precise secondary modifications after generation</li></ul>"
-    right:
-      kind: "image"
-      image:
-        src: "assets/img/portfolio/bmw-movie/downside1.png"
-        alt: ""
-        caption: "Fully AI-Driven" 
-  - type: "two-column"
-    left:
-      kind: "text"
-      paragraphs:
-        - "<h5>Approach 2 (50% AI + 50% HUMAN)</h5>"
-        - "Pros"
-        - "<ul><li>Improves efficiency in early-stage asset creation</li><li>Provides greater control over visual details and design consistency</li><li>Enables reusable design assets for future content production</li></ul>"
-        - "Cons"
-        - "<ul><li>Requires higher token consumption and generation costs</li><li>Lack of transparent backgrounds in AI-generated assets increases post-processing complexity</li><li>Still requires significant manual effort for high-precision video editing and refinement</li></ul>"
-    right:
-      kind: "image"
-      image:
-        src: "assets/img/portfolio/bmw-movie/downside2.png"
-        alt: ""
-        caption: "Hybrid Workflow" 
-  - type: "paragraph"
-    paragraphs:
-      - "<strong>Workflow Transformation</strong>"
-      - "Generative AI significantly compresses the production timeline for foundational content creation. It demonstrates strong advantages in repetitive tasks such as visual asset generation, motion exploration, and animation prototyping. As a result, designers’ roles gradually shift from manual production toward creative refinement, quality control, and overall experience direction."
-      - "<strong>Quality Control Logic</strong>"
-      - "The quality of AI-generated outputs is not solely determined by the technology itself, but heavily influenced by the depth and timing of human intervention. The final quality of the experience is built through continuous design decisions, creative adjustments, and iterative refinement—highlighting that human judgment defines the upper limit of AI-assisted creation."
-      - "<strong>Evolving Roles Between Human and AI</strong>"
-      - "Even with a highly automated workflow, AI still struggles to independently manage narrative structure, emotional expression, and contextual coherence. Human involvement remains essential in areas such as pacing, semantic consistency, and visual precision. Designers continue to play a critical role as creative directors and quality guardians within the AI-powered production process."
+      - "<h5>Workflow transformation</h5>"
+      - "Generative AI can substantially compress foundational production work, particularly visual asset generation, motion exploration, and animation prototyping. The designer's role shifts from manual creation toward creative direction, quality control, and experience refinement."
+      - "<h5>Quality control logic</h5>"
+      - "Output quality depends less on AI alone than on the depth and timing of human intervention. Continuous design decisions, creative adjustments, and iterative refinement establish the quality ceiling of AI-assisted creation."
+      - "<h5>Evolving human-AI roles</h5>"
+      - "Even in a highly automated workflow, AI struggles to manage narrative structure, emotional expression, and contextual coherence independently. Designers remain essential as creative directors and quality guardians."
+
   - type: "image"
     image:
       src: "assets/img/portfolio/bmw-movie/ending.png"
-      alt: ""
+      alt: "Final festive movie outcome"
+      caption: "The final exploration demonstrates a scalable direction for culturally localized, AI-assisted content creation."
+      maxWidth: "100%"
+
   - type: "paragraph"
     paragraphs:
       - "<strong>Disclaimer:</strong> All materials are presented solely to demonstrate design thinking and process, and do not represent the actual product."

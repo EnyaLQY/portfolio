@@ -121,6 +121,39 @@ const projectBlock = z.discriminatedUnion("type", [
     })).min(1)
   }),
   z.object({
+    type: z.literal("card-grid"),
+    title: z.string().optional(),
+    layout: z.enum(["auto", "2", "3", "4", "2x2"]).optional(),
+    items: z.array(z.object({
+      label: z.string().optional(),
+      title: z.string(),
+      description: z.string().optional()
+    })).min(1).max(5)
+  }),
+  z.object({
+    type: z.literal("process-grid"),
+    title: z.string().optional(),
+    layout: z.enum(["2", "3", "4", "1x2"]).optional(),
+    approaches: z.array(z.object({
+      label: z.string(),
+      title: z.string(),
+      description: z.string().optional(),
+      steps: z.array(z.string()).min(1),
+      image: mediaItem.optional()
+    })).min(1).max(4)
+  }),
+  z.object({
+    type: z.literal("comparison-grid"),
+    title: z.string().optional(),
+    items: z.array(z.object({
+      label: z.string(),
+      title: z.string(),
+      strengths: z.array(z.string()).min(1),
+      tradeoffs: z.array(z.string()).min(1),
+      image: mediaItem.optional()
+    })).min(2).max(4)
+  }),
+  z.object({
     type: z.literal("research-grid"),
     title: z.string().optional(),
     eyebrow: z.string().optional(),
