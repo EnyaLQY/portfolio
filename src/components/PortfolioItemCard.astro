@@ -15,7 +15,9 @@ const { href, title, subtitle, topic, image, filters, previewHref, previewTitle 
 
 <div class={`col-lg-4 col-md-6 portfolio-item ${filters}`}>
   <div class="portfolio-img">
-    <a href={href}><img src={image} class="img-fluid" alt="" /></a>
+    <a href={href} aria-label={`View project: ${title}`}>
+      <img src={image} class="img-fluid" alt="" />
+    </a>
     <div class="portfolio-topic" aria-label={`Project topic: ${topic}`}>{topic}</div>
   </div>
 
@@ -24,9 +26,9 @@ const { href, title, subtitle, topic, image, filters, previewHref, previewTitle 
     <p>{subtitle}</p>
     {
       previewHref ? (
-        <a href={previewHref} data-gall="portfolioGallery" class="venobox preview-link" title={previewTitle}><i class="bx bx-plus"></i></a>
+        <a href={previewHref} data-gall="portfolioGallery" class="venobox preview-link" aria-label={`Preview ${title}`} title={previewTitle}><i class="bx bx-plus" aria-hidden="true"></i></a>
       ) : null
     }
-    <a href={href} class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+    <span class="details-link" aria-hidden="true"><i class="bx bx-link"></i></span>
   </div>
 </div>

@@ -1,6 +1,13 @@
 ---
 title: "Portfolio Home Cards"
 cards:
+  - href: "../portfolio/projects/personal-tools/"
+    title: "Personal AI Projects"
+    subtitle: "React, TypeScript & AI-Assisted Development"
+    topic: "WEB"
+    image: "../portfolio/assets/img/portfolio/personal-tools/coverimg.png"
+    filters: "filter-app"
+
   - href: "../portfolio/projects/ai-particle/"
     title: "BMW - AI Particle Design"
     subtitle: "UX Design & Prototyping"

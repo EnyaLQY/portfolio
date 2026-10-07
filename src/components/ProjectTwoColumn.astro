@@ -1,0 +1,63 @@
+---
+import RichText from "./RichText.astro";
+
+const { block, baseUrl, projectTitle } = Astro.props;
+
+function getColumnClasses(layout = "1-1") {
+  if (layout === "1-2") return { left: "col-lg-4", right: "col-lg-8" };
+  if (layout === "2-1") return { left: "col-lg-8", right: "col-lg-4" };
+  return { left: "col-lg-6", right: "col-lg-6" };
+}
+
+function getImageStyle(maxWidth) {
+  return `width: 100%; max-width: ${maxWidth || "95%"}; margin: 0 0 0 auto; display: block; cursor: zoom-in;`;
+}
+
+const columns = getColumnClasses(block.layout);
+---
+
+<div class="row gy-4">
+  {
+    [
+      { content: block.left, className: columns.left },
+      { content: block.right, className: columns.right }
+    ].map(({ content, className }) => (
+      <div class={className}>
+        {
+          content.kind === "text" ? (
+            <RichText text={content.text} paragraphs={content.paragraphs} />
+          ) : content.kind === "data-chart" ? (
+            <section class={`project-data-chart${content.compact ? " project-data-chart--compact" : ""}`} aria-label={content.eyebrow || "Project data"}>
+              {content.description ? <p class="project-data-chart__description">{content.description}</p> : null}
+              <div class="project-data-chart__metrics">
+                {content.metrics.map((metric) => (
+                  <div class="project-data-chart__metric">
+                    <div class="project-data-chart__metric-header"><span class="project-data-chart__value">{metric.value}</span><span class="project-data-chart__label">{metric.label}</span></div>
+                    {metric.progress !== undefined ? <div class="project-data-chart__track" role="progressbar" aria-label={metric.label} aria-valuenow={metric.progress} aria-valuemin="0" aria-valuemax="100"><span class="project-data-chart__bar" style={`width: ${metric.progress}%;`}></span></div> : null}
+                    {metric.detail ? <p class="project-data-chart__detail">{metric.detail}</p> : null}
+                  </div>
+                ))}
+              </div>
+              {content.sourceLabel ? <p class="project-data-chart__source">Source: {content.sourceUrl ? <a href={content.sourceUrl} target="_blank" rel="noreferrer">{content.sourceLabel}</a> : content.sourceLabel}</p> : null}
+              {content.note ? <p class="project-data-chart__note">{content.note}</p> : null}
+            </section>
+          ) : content.kind === "image-grid" ? (
+            <div class="row" style="--bs-gutter-x: 1.75rem; --bs-gutter-y: 0;">
+              {content.images.map((image) => (
+                <div class={content.images.length >= 4 ? "col-lg-3 col-md-6" : content.images.length === 3 ? "col-lg-4 col-md-6" : content.images.length === 2 ? "col-lg-6" : "col-12"}>
+                  <a href={`${baseUrl}${image.src}`} data-glightbox="single" style="display:block;cursor:zoom-in;"><img src={`${baseUrl}${image.src}`} alt={image.alt || projectTitle} style={getImageStyle(image.maxWidth)} /></a>
+                  {image.caption ? <p class="project-image-caption">{image.caption}</p> : null}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <>
+              <a href={`${baseUrl}${content.image.src}`} data-glightbox="single" style="display:block;cursor:zoom-in;"><img src={`${baseUrl}${content.image.src}`} alt={content.image.alt || projectTitle} style={getImageStyle(content.image.maxWidth)} /></a>
+              {content.image.caption ? <p class="project-image-caption">{content.image.caption}</p> : null}
+            </>
+          )
+        }
+      </div>
+    ))
+  }
+</div>

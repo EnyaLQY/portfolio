@@ -14,13 +14,57 @@ body {
 }
 
 a {
-  color: #ffb727;
+  color: #8a5200;
   text-decoration: none;
 }
 
 a:hover {
-  color: #ffc85a;
+  color: #613900;
   text-decoration: none;
+}
+
+.btn.btn-outline-warning {
+  border-color: #8a5200;
+  color: #613900;
+}
+
+.btn.btn-outline-warning:hover, .btn.btn-outline-warning:focus {
+  border-color: #613900;
+  background: #8a5200;
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 3px solid #8a5200;
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100000;
+  padding: 0.7rem 1rem;
+  background: #fff;
+  color: #613900;
+  font-weight: 700;
+  transform: translateY(-180%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -118,6 +162,10 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
 }
 
+.nav-menu a:focus-visible, .mobile-nav-toggle:focus-visible {
+  outline-color: #fff;
+}
+
 .nav-menu .drop-down ul {
   display: block;
   position: absolute;
@@ -205,7 +253,6 @@ h1, h2, h3, h4, h5, h6 {
   background: none;
   font-size: 24px;
   transition: all 0.4s;
-  outline: none !important;
   line-height: 1;
   cursor: pointer;
   text-align: right;
@@ -243,7 +290,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #3b434a;
   padding: 10px 20px;
   font-weight: 500;
-  outline: none;
 }
 
 .mobile-nav a:hover, .mobile-nav .active > a, .mobile-nav li:hover > a {
@@ -872,23 +918,31 @@ section {
   margin-bottom: 20px;
 }
 
-.portfolio #portfolio-flters li {
+.portfolio #portfolio-flters button {
   cursor: pointer;
   display: inline-block;
   margin: 0 10px 10px 10px;
   font-size: 15px;
+  font-family: inherit;
   font-weight: 600;
   line-height: 1;
   padding: 7px 10px;
   text-transform: uppercase;
   color: #444444;
+  background: transparent;
   transition: all 0.3s ease-in-out;
   border: 2px solid #fff;
+  outline: none;
 }
 
-.portfolio #portfolio-flters li:hover, .portfolio #portfolio-flters li.filter-active {
+.portfolio #portfolio-flters button:hover, .portfolio #portfolio-flters button.filter-active {
   color: #f3a200;
+  background: transparent;
   border-color: #ffb727;
+}
+
+.portfolio #portfolio-flters button:focus-visible {
+  outline-color: #ffb727;
 }
 
 .portfolio .portfolio-item {
@@ -969,7 +1023,7 @@ section {
   transition: 0.3s;
 }
 
-.portfolio .portfolio-item .portfolio-info .preview-link:hover, .portfolio .portfolio-item .portfolio-info .details-link:hover {
+.portfolio .portfolio-item .portfolio-info .preview-link:hover {
   color: #ffc041;
 }
 
@@ -981,7 +1035,8 @@ section {
   transform: scale(1.2);
 }
 
-.portfolio .portfolio-item:hover .portfolio-info {
+.portfolio .portfolio-item:hover .portfolio-info,
+.portfolio .portfolio-item:focus-within .portfolio-info {
   opacity: 1;
 }
 
@@ -1253,8 +1308,39 @@ section {
 
 .contact .social-links a:hover {
   color: #fff;
-  border-color: #ffb727;
-  background: #ffb727;
+  border-color: #8a5200;
+  background: #8a5200;
+}
+
+.contact-email-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100%;
+  padding: 2rem;
+  background: #fff6e4;
+}
+
+.contact-email-panel h3 {
+  color: #613900;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.contact-email-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.7rem 1rem;
+  border-radius: 4px;
+  background: #8a5200;
+  color: #fff;
+  font-weight: 700;
+}
+
+.contact-email-link:hover {
+  background: #613900;
+  color: #fff;
 }
 
 .contact .php-email-form {
@@ -1358,6 +1444,15 @@ section {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

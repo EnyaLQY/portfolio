@@ -4,6 +4,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import RichText from "../../components/RichText.astro";
+import ProjectTwoColumn from "../../components/ProjectTwoColumn.astro";
+import ProjectBlock from "../../components/ProjectBlock.astro";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -371,10 +373,76 @@ function getAssetUrl(src) {
                             {
                               block.items.map((item) => (
                                 <article class="project-card-grid__item">
+                                  {item.icon ? <i class={`project-card-grid__icon ${item.icon}`} aria-hidden="true"></i> : null}
                                   {item.label ? <p>{item.label}</p> : null}
                                   <h3>{item.title}</h3>
                                   {item.description ? <div set:html={item.description}></div> : null}
                                 </article>
+                              ))
+                            }
+                          </section>
+                        ) : null
+                      }
+
+                      {
+                        block.type === "media-placeholder" ? (
+                          <figure class={`project-media-placeholder project-media-placeholder--${block.aspectRatio || "wide"}`}>
+                            <div class="project-media-placeholder__content">
+                              <i class="bi bi-image" aria-hidden="true"></i>
+                              {block.label ? <p>{block.label}</p> : null}
+                              <h3>{block.title}</h3>
+                              {block.note ? <figcaption>{block.note}</figcaption> : null}
+                            </div>
+                          </figure>
+                        ) : null
+                      }
+
+                      {
+                        block.type === "project-switcher" ? (
+                          <section class="project-switcher" data-project-switcher>
+                            {block.intro ? <p class="project-switcher__lead" set:html={block.intro}></p> : null}
+                            <div class="project-switcher__tabs" role="tablist" aria-label="Personal project details">
+                              {
+                                block.items.map((item, itemIndex) => (
+                                  <button
+                                    class="project-switcher__tab"
+                                    id={`project-switcher-${index}-${item.id}-tab`}
+                                    type="button"
+                                    role="tab"
+                                    aria-selected={itemIndex === 0 ? "true" : "false"}
+                                    aria-controls={`project-switcher-${index}-${item.id}-panel`}
+                                    tabindex={itemIndex === 0 ? 0 : -1}
+                                  >
+                                    {item.icon ? <i class={item.icon} aria-hidden="true"></i> : null}
+                                    <span class="project-switcher__tab-status">{item.status}</span>
+                                    <span class="project-switcher__tab-title">{item.title}</span>
+                                    <span class="project-switcher__tab-summary">{item.summary}</span>
+                                  </button>
+                                ))
+                              }
+                            </div>
+
+                            {
+                              block.items.map((item, itemIndex) => (
+                                <div
+                                  class="project-switcher__panel"
+                                  id={`project-switcher-${index}-${item.id}-panel`}
+                                  role="tabpanel"
+                                  aria-labelledby={`project-switcher-${index}-${item.id}-tab`}
+                                  hidden={itemIndex !== 0}
+                                >
+                                  {
+                                    item.sections.map((section, sectionIndex) => (
+                                      <ProjectBlock
+                                        block={section}
+                                        index={sectionIndex}
+                                        previousBlock={item.sections[sectionIndex - 1]}
+                                        baseUrl={baseUrl}
+                                        projectTitle={project.data.title}
+                                      />
+                                    ))
+                                  }
+                                </div>
                               ))
                             }
                           </section>
@@ -1293,6 +1361,7 @@ function getAssetUrl(src) {
   .project-card-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-card-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .project-card-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .project-card-grid--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .project-card-grid--2x2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-process-grid--2,
   .project-comparison-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
@@ -1331,9 +1400,175 @@ function getAssetUrl(src) {
     line-height: 1.35;
   }
 
+  .project-card-grid__icon {
+    display: grid;
+    width: 2.35rem;
+    height: 2.35rem;
+    margin: 0 0 1.1rem;
+    place-items: center;
+    border-radius: 0.7rem;
+    background: var(--project-accent-soft);
+    color: var(--project-accent-ink);
+    font-size: 1.2rem;
+  }
+
   .project-card-grid__item div,
   .project-process-grid__description {
     color: #475569;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .project-media-placeholder {
+    display: grid;
+    width: 100%;
+    margin: 1.75rem 0 0;
+    place-items: center;
+    overflow: hidden;
+    border: 1px dashed rgba(15, 23, 42, 0.25);
+    border-radius: 1.1rem;
+    background: repeating-linear-gradient(-45deg, #f8fafc 0, #f8fafc 0.75rem, #f1f5f9 0.75rem, #f1f5f9 1.5rem);
+  }
+
+  .project-media-placeholder--wide { aspect-ratio: 16 / 7; }
+  .project-media-placeholder--video { aspect-ratio: 16 / 9; }
+
+  .project-media-placeholder__content {
+    max-width: 30rem;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .project-media-placeholder__content > i {
+    display: block;
+    margin-bottom: 0.7rem;
+    color: var(--project-accent);
+    font-size: 1.5rem;
+  }
+
+  .project-media-placeholder__content p {
+    margin: 0 0 0.45rem;
+    color: var(--project-accent);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .project-media-placeholder__content h3 {
+    margin: 0;
+    color: #334155;
+    font-size: 1rem;
+  }
+
+  .project-media-placeholder__content figcaption {
+    margin-top: 0.45rem;
+    color: #64748b;
+    font-size: 0.82rem;
+  }
+
+  .project-switcher {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .project-switcher__lead {
+    max-width: 38rem;
+    margin: 0 0 1.25rem;
+    color: #475569;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .project-switcher__tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .project-switcher__tab {
+    min-height: 12.5rem;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-radius: 1.1rem;
+    background: #fff;
+    color: #334155;
+    text-align: left;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .project-switcher__tab:hover,
+  .project-switcher__tab[aria-selected="true"] {
+    border-color: var(--project-accent);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
+  }
+
+  .project-switcher__tab[aria-selected="true"] {
+    background: var(--project-accent-soft);
+  }
+
+  .project-switcher__tab:focus-visible {
+    outline: 3px solid var(--project-accent);
+    outline-offset: 3px;
+  }
+
+  .project-switcher__tab > i {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+    place-items: center;
+    border-radius: 0.75rem;
+    background: #fff;
+    color: var(--project-accent-ink);
+    font-size: 1.25rem;
+  }
+
+  .project-switcher__tab-status,
+  .project-switcher__tab-title,
+  .project-switcher__tab-summary {
+    display: block;
+  }
+
+  .project-switcher__tab-status {
+    margin-bottom: 0.45rem;
+    color: var(--project-accent);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .project-switcher__tab-title {
+    color: #0f172a;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .project-switcher__tab-summary {
+    margin-top: 0.5rem;
+    color: #475569;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .project-switcher__panel {
+    margin-top: 0;
+  }
+
+  .project-switcher__panel[hidden] {
+    display: none;
+  }
+
+  .project-block__intro {
+    margin: 0 0 1.5rem;
+    color: #444;
+    line-height: 1.7;
+  }
+
+  .project-block__intro--half {
+    max-width: 50%;
   }
 
   .project-process-grid__item ol {
@@ -1440,9 +1675,11 @@ function getAssetUrl(src) {
     .project-research__metrics,
     .project-interaction-grid__items,
     .project-question-grid,
+    .project-switcher__tabs,
     .project-card-grid--2,
     .project-card-grid--3,
     .project-card-grid--4,
+    .project-card-grid--5,
     .project-card-grid--2x2,
     .project-process-grid--2,
     .project-process-grid--3,
@@ -1450,6 +1687,10 @@ function getAssetUrl(src) {
     .project-comparison-grid,
     .project-comparison-grid__columns {
       grid-template-columns: 1fr;
+    }
+
+    .project-block__intro--half {
+      max-width: 100%;
     }
 
     .project-process-grid__item ol {
@@ -1493,6 +1734,42 @@ function getAssetUrl(src) {
 
 <script is:inline>
 document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('[data-project-switcher]').forEach(function(switcher) {
+    const tabs = Array.from(switcher.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(switcher.querySelectorAll('[role="tabpanel"]'));
+
+    function activateTab(tab) {
+      tabs.forEach(function(candidate) {
+        const selected = candidate === tab;
+        candidate.setAttribute('aria-selected', String(selected));
+        candidate.setAttribute('tabindex', selected ? '0' : '-1');
+        const panel = panels.find(function(candidatePanel) {
+          return candidatePanel.id === candidate.getAttribute('aria-controls');
+        });
+        if (panel) panel.hidden = !selected;
+      });
+    }
+
+    tabs.forEach(function(tab, tabIndex) {
+      tab.addEventListener('click', function() {
+        activateTab(tab);
+      });
+
+      tab.addEventListener('keydown', function(event) {
+        let nextIndex = tabIndex;
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (tabIndex + 1) % tabs.length;
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (tabIndex - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') nextIndex = 0;
+        if (event.key === 'End') nextIndex = tabs.length - 1;
+        if (nextIndex !== tabIndex) {
+          event.preventDefault();
+          activateTab(tabs[nextIndex]);
+          tabs[nextIndex].focus();
+        }
+      });
+    });
+  });
+
   if(typeof GLightbox === 'undefined') return;
 
   const lightbox = GLightbox({

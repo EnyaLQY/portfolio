@@ -1,0 +1,57 @@
+---
+import RichText from "./RichText.astro";
+import ProjectTwoColumn from "./ProjectTwoColumn.astro";
+
+const { block, index = 0, previousBlock, baseUrl, projectTitle } = Astro.props;
+
+const hasTitle = typeof block.title === "string" && block.title.trim().length > 0;
+const isMedia = block.type === "image" || block.type === "image-grid";
+const isSection = hasTitle && index > 0;
+const gridClass = (count) => count >= 4 ? "col-lg-3 col-md-6" : count === 3 ? "col-lg-4 col-md-6" : count === 2 ? "col-lg-6" : "col-12";
+const imageStyle = (maxWidth) => `width: 100%; max-width: ${maxWidth || "88%"}; margin: 0 auto; display: block; cursor: zoom-in;`;
+const classes = `project-block${index === 0 ? " project-block--first" : ""}${index > 0 ? " project-block--after" : ""}${isMedia ? " project-block--media" : ""}${block.type === "decision" ? " project-block--decision" : ""}${block.type === "interaction-grid" ? " project-block--interaction" : ""}${block.type === "question-grid" ? " project-block--question-grid" : ""}${block.type === "card-grid" ? " project-block--card-grid" : ""}${block.type === "embed" ? " project-block--embed" : ""}${isSection ? " project-block--section" : ""}`;
+---
+
+<div class={classes}>
+  {hasTitle ? <h2 class="project-block__title">{block.title}</h2> : null}
+
+  {block.type === "paragraph" ? <RichText text={block.text} paragraphs={block.paragraphs} /> : null}
+
+  {block.type === "image" ? (
+    <div><a href={`${baseUrl}${block.image.src}`} data-glightbox="single" style="display:block;cursor:zoom-in;"><img src={`${baseUrl}${block.image.src}`} alt={block.image.alt || projectTitle} style={imageStyle(block.image.maxWidth)} /></a>{block.image.caption ? <p class="project-image-caption">{block.image.caption}</p> : null}</div>
+  ) : null}
+
+  {block.type === "image-grid" ? (
+    <div class="row" style="--bs-gutter-x: 2.75rem; --bs-gutter-y: 0;">{block.images.map((image) => <div class={gridClass(block.images.length)}><a href={`${baseUrl}${image.src}`} data-glightbox="single" style="display:block;cursor:zoom-in;"><img src={`${baseUrl}${image.src}`} alt={image.alt || projectTitle} style={imageStyle(image.maxWidth)} /></a>{image.caption ? <p class="project-image-caption">{image.caption}</p> : null}</div>)}</div>
+  ) : null}
+
+  {block.type === "two-column" ? <ProjectTwoColumn block={block} baseUrl={baseUrl} projectTitle={projectTitle} /> : null}
+
+  {block.type === "card-grid" ? (
+    <>{block.intro ? <p class={`project-block__intro project-block__intro--${block.introWidth || "full"}`} set:html={block.intro}></p> : null}<div class={`project-card-grid project-card-grid--${block.layout || "2"}`}>{block.items.map((item) => <article class="project-card-grid__item">{item.icon ? <i class={`project-card-grid__icon ${item.icon}`} aria-hidden="true"></i> : null}{item.label ? <p>{item.label}</p> : null}<h3>{item.title}</h3>{item.description ? <div set:html={item.description}></div> : null}</article>)}</div></>
+  ) : null}
+
+  {block.type === "media-placeholder" ? (
+    <>{block.intro ? <p class={`project-block__intro project-block__intro--${block.introWidth || "full"}`} set:html={block.intro}></p> : null}<figure class={`project-media-placeholder project-media-placeholder--${block.aspectRatio || "wide"}`}><div class="project-media-placeholder__content"><i class="bi bi-image" aria-hidden="true"></i>{block.label ? <p>{block.label}</p> : null}<h3>{block.title}</h3>{block.note ? <figcaption>{block.note}</figcaption> : null}</div></figure></>
+  ) : null}
+
+  {block.type === "workflow" ? <section class="project-workflow">{block.intro ? <p>{block.intro}</p> : null}<div class="project-workflow__root">{block.root}</div><div class="project-workflow__connector" aria-hidden="true"></div><div class="project-workflow__items">{block.items.map((item) => <article class="project-workflow__item"><div class="project-workflow__function"><h3>{item.title}</h3><p>{item.description}</p></div><ol class="project-workflow__steps">{item.steps.map((step, stepIndex) => <li><span>{String(stepIndex + 1).padStart(2, "0")}</span>{step}</li>)}</ol></article>)}</div></section> : null}
+
+  {block.type === "question-grid" ? <section class="project-question-grid">{block.questions.map((question) => <article><p>{question.label}</p><h3>{question.question}</h3></article>)}</section> : null}
+
+  {block.type === "interaction-grid" ? <section class="project-interaction-grid">{block.intro ? <p class="project-interaction-grid__intro">{block.intro}</p> : null}<div class="project-interaction-grid__items">{block.items.map((item) => <article class="project-interaction-grid__item"><h3>{item.title}</h3><p>{item.description}</p><a href={`${baseUrl}${item.image.src}`} data-glightbox="single"><img src={`${baseUrl}${item.image.src}`} alt={item.image.alt || item.title} /></a>{item.image.caption ? <p class="project-image-caption">{item.image.caption}</p> : null}</article>)}</div></section> : null}
+
+  {block.type === "decision" ? <article class="project-decision"><div class="row g-4 align-items-center"><div class={block.image ? "col-lg-7" : "col-12"}><p class="project-decision__label">{block.label}</p><p class="project-decision__question">{block.question}</p><h3 class="project-decision__title">{block.decision}</h3><RichText paragraphs={block.rationale} />{block.outcome ? <p class="project-decision__outcome"><strong>Why it matters</strong>{block.outcome}</p> : null}</div>{block.image ? <div class="col-lg-5"><a class="project-decision__image-link" href={`${baseUrl}${block.image.src}`} data-glightbox="single"><img class="project-decision__image" src={`${baseUrl}${block.image.src}`} alt={block.image.alt || block.decision} /></a>{block.image.caption ? <p class="project-image-caption">{block.image.caption}</p> : null}</div> : null}</div></article> : null}
+
+  {block.type === "data-chart" ? <section class={`project-data-chart${block.compact ? " project-data-chart--compact" : ""}`}>{block.eyebrow ? <p class="project-data-chart__eyebrow">{block.eyebrow}</p> : null}{block.description ? <p class="project-data-chart__description">{block.description}</p> : null}<div class="project-data-chart__metrics">{block.metrics.map((metric) => <div class="project-data-chart__metric"><div class="project-data-chart__metric-header"><span class="project-data-chart__value">{metric.value}</span><span class="project-data-chart__label">{metric.label}</span></div>{metric.progress !== undefined ? <div class="project-data-chart__track" role="progressbar" aria-label={metric.label} aria-valuenow={metric.progress} aria-valuemin="0" aria-valuemax="100"><span class="project-data-chart__bar" style={`width: ${metric.progress}%;`}></span></div> : null}{metric.detail ? <p class="project-data-chart__detail">{metric.detail}</p> : null}</div>)}</div>{block.note ? <p class="project-data-chart__note">{block.note}</p> : null}</section> : null}
+
+  {block.type === "process-grid" ? <section class={`project-process-grid project-process-grid--${block.layout || "2"}`}>{block.approaches.map((approach) => <article class="project-process-grid__item"><p>{approach.label}</p><h3>{approach.title}</h3>{approach.description ? <div class="project-process-grid__description" set:html={approach.description}></div> : null}<ol>{approach.steps.map((step, stepIndex) => <li><span>{String(stepIndex + 1).padStart(2, "0")}</span>{step}</li>)}</ol>{approach.image ? <figure class="project-process-grid__visual"><a href={`${baseUrl}${approach.image.src}`} data-glightbox="single"><img src={`${baseUrl}${approach.image.src}`} alt={approach.image.alt || approach.title} /></a>{approach.image.caption ? <figcaption>{approach.image.caption}</figcaption> : null}</figure> : null}</article>)}</section> : null}
+
+  {block.type === "comparison-grid" ? <section class="project-comparison-grid">{block.items.map((item) => <article class="project-comparison-grid__item"><p class="project-comparison-grid__label">{item.label}</p><h3>{item.title}</h3><div class="project-comparison-grid__columns"><div><h4>Strengths</h4><ul>{item.strengths.map((value) => <li>{value}</li>)}</ul></div><div><h4>Trade-offs</h4><ul>{item.tradeoffs.map((value) => <li>{value}</li>)}</ul></div></div>{item.image ? <><a href={`${baseUrl}${item.image.src}`} data-glightbox="single"><img src={`${baseUrl}${item.image.src}`} alt={item.image.alt || item.title} /></a>{item.image.caption ? <p class="project-image-caption">{item.image.caption}</p> : null}</> : null}</article>)}</section> : null}
+
+  {block.type === "research-grid" ? <section class="project-research"><div class="project-research__setup"><div><p class="project-research__label">Participants</p><p class="project-research__value">{block.participants}</p></div><div><p class="project-research__label">Methods</p><ul class="project-research__methods">{block.methods.map((method) => <li>{method}</li>)}</ul></div></div><div class="project-research__metrics">{block.metrics.map((metric) => <div class="project-research__metric"><p class="project-research__metric-value">{metric.value}</p><p class="project-research__metric-label">{metric.label}</p>{metric.detail ? <p class="project-research__metric-detail">{metric.detail}</p> : null}</div>)}</div>{block.note ? <p class="project-research__note">{block.note}</p> : null}</section> : null}
+
+  {block.type === "quote" ? <blockquote style="border-left: 4px solid var(--project-accent); padding-left: 1rem; color: #444;"><RichText text={block.text} paragraphs={block.paragraphs} />{block.author ? <cite>{block.author}</cite> : null}</blockquote> : null}
+
+  {block.type === "embed" ? <div><div style="display: flex; justify-content: center; margin-top: 24px;"><iframe src={block.src} width={block.width || "1000"} height={block.height || "600"} style="border: 1px solid rgba(0, 0, 0, 0.1); max-width: 100%;" allowfullscreen></iframe></div>{block.caption ? <p class="project-image-caption">{block.caption}</p> : null}</div> : null}
+</div>

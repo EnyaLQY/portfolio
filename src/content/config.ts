@@ -39,7 +39,18 @@ const columnContent = z.discriminatedUnion("kind", [
   })
 ]);
 
-const projectBlock = z.discriminatedUnion("type", [
+const twoColumnBlock = z.object({
+  type: z.literal("two-column"),
+  title: z.string().optional(),
+  spaceBefore: z.string().optional(),
+  layout: z.enum(["1-1", "1-2", "2-1"]).optional(),
+  left: columnContent,
+  right: columnContent
+});
+
+const projectSwitcherSection = z.lazy(() => projectContentBlock);
+
+const projectContentBlock = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("paragraph"),
     title: z.string().optional(),
@@ -58,14 +69,7 @@ const projectBlock = z.discriminatedUnion("type", [
     spaceBefore: z.string().optional(),
     images: z.array(mediaItem).min(1)
   }),
-  z.object({
-    type: z.literal("two-column"),
-    title: z.string().optional(),
-    spaceBefore: z.string().optional(),
-    layout: z.enum(["1-1", "1-2", "2-1"]).optional(),
-    left: columnContent,
-    right: columnContent
-  }),
+  twoColumnBlock,
   z.object({
     type: z.literal("decision"),
     label: z.string(),
@@ -123,12 +127,24 @@ const projectBlock = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("card-grid"),
     title: z.string().optional(),
-    layout: z.enum(["auto", "2", "3", "4", "2x2"]).optional(),
+    intro: z.string().optional(),
+    introWidth: z.enum(["half", "full"]).optional(),
+    layout: z.enum(["auto", "2", "3", "4", "5", "2x2"]).optional(),
     items: z.array(z.object({
+      icon: z.string().optional(),
       label: z.string().optional(),
       title: z.string(),
       description: z.string().optional()
     })).min(1).max(5)
+  }),
+  z.object({
+    type: z.literal("media-placeholder"),
+    intro: z.string().optional(),
+    introWidth: z.enum(["half", "full"]).optional(),
+    label: z.string().optional(),
+    title: z.string(),
+    note: z.string().optional(),
+    aspectRatio: z.enum(["wide", "video"]).optional()
   }),
   z.object({
     type: z.literal("process-grid"),
@@ -191,6 +207,21 @@ const projectBlock = z.discriminatedUnion("type", [
     caption: z.string().optional(),
   })
 ]);
+
+const projectSwitcherBlock = z.object({
+  type: z.literal("project-switcher"),
+  intro: z.string().optional(),
+  items: z.array(z.object({
+    id: z.string(),
+    icon: z.string().optional(),
+    status: z.string(),
+    title: z.string(),
+    summary: z.string(),
+    sections: z.array(projectSwitcherSection).min(1)
+  })).min(2).max(4)
+});
+
+const projectBlock = z.union([projectContentBlock, projectSwitcherBlock]);
 
 const projects = defineCollection({
   type: "content",
