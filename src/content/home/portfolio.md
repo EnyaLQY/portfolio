@@ -75,8 +75,6 @@ cards:
     topic: "Art"
     image: "../portfolio/assets/img/IMG_5627.JPG"
     filters: "filter-other"
-    previewHref: "../portfolio/assets/img/portfolio/avator/portfolio_avator.JPG"
-    previewTitle: "Other 1"
 
   - href: "../portfolio/projects/bobing/"
     title: "Project - VR Bo Bing"

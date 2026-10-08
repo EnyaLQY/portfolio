@@ -36,9 +36,362 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+    .skip-link { position: fixed; top: 0.75rem; left: 0.75rem; z-index: 10000; padding: 0.7rem 1rem; transform: translateY(-150%); background: #1b1b1b; color: #fff; font-weight: 700; text-decoration: none; transition: transform 0.15s ease; }
+    .skip-link:focus-visible { transform: translateY(0); }
+    .visual-mode-toggle { display: inline-flex; align-items: center; gap: 0.35rem; border: 0; padding: 0; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+    .visual-mode-toggle i { font-size: 1rem; }
+    .visual-mode-toggle:focus-visible { outline: 3px solid #ffb727; outline-offset: 4px;}
+
+    body[data-visual-mode="accessible"] { color: #1b1b1b; font-size: 16px; line-height: 1.6; }
+    body[data-visual-mode="accessible"] #header { background: #1b1b1b; }
+    body[data-visual-mode="accessible"] #header a { color: #fff; font-size: 15px; }
+    body[data-visual-mode="accessible"] #header .visual-mode-toggle { margin-left: 0.5rem; padding: 0.4rem 0.65rem; border: 2px solid #ffb727; background: #ffb727; color: #1b1b1b; font-weight: 700; }
+    body[data-visual-mode="accessible"] #hero h1, body[data-visual-mode="accessible"] #hero h2 { color: #fff; }
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button { border: 2px solid #1b1b1b; color: #1b1b1b; font-size: 1rem; font-weight: 700; line-height: 1.4; }
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button:hover, body[data-visual-mode="accessible"] .portfolio #portfolio-flters button.filter-active { border-color: #1b1b1b; background: #ffb727; color: #1b1b1b; text-decoration: underline; text-underline-offset: 0.2em; }
+    body[data-visual-mode="accessible"] .portfolio-topic { background: #ffb727; color: #1b1b1b; font-weight: 800; }
+    body[data-visual-mode="accessible"] .portfolio .portfolio-info { background: rgba(27, 27, 27, 0.92); }
+    body[data-visual-mode="accessible"] .portfolio .portfolio-info h4, body[data-visual-mode="accessible"] .portfolio .portfolio-info p, body[data-visual-mode="accessible"] .portfolio .portfolio-info i { color: #fff; }
+    body[data-visual-mode="accessible"] #contact, body[data-visual-mode="accessible"] .contact { font-size: 1rem; line-height: 1.6; }
+    body[data-visual-mode="accessible"] #contact a, body[data-visual-mode="accessible"] .contact a { color: #996600; font-weight: 700; text-decoration: underline; }
+    body[data-visual-mode="accessible"] .back-to-top { background: #ffb727; color: #1b1b1b; }
+    body[data-visual-mode="accessible"] a:focus-visible, body[data-visual-mode="accessible"] button:focus-visible, body[data-visual-mode="accessible"] [tabindex]:focus-visible { outline: 3px solid #1b1b1b; outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) { body[data-visual-mode="accessible"] *, body[data-visual-mode="accessible"] *::before, body[data-visual-mode="accessible"] *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; } }
+  </style>
+  <style>
+    /* Accessibility Mode: high-contrast, fill-based interaction states. */
+    body[data-visual-mode="accessible"] {
+      --a11y-ink: #1b1b1b;  
+      --a11y-yellow: #ffb727;
+      --a11y-surface: #f5f5f2;
+      color: var(--a11y-ink);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    body[data-visual-mode="accessible"] p,
+    body[data-visual-mode="accessible"] li,
+    body[data-visual-mode="accessible"] .portfolio-info,
+    body[data-visual-mode="accessible"] .portfolio-info p,
+    body[data-visual-mode="accessible"] #contact,
+    body[data-visual-mode="accessible"] .contact { font-size: 1rem; line-height: 1.6; }
+
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button {
+      border: 0;
+      border-radius: 0;
+      background: var(--a11y-surface);
+      color: var(--a11y-ink);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button:hover,
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button.filter-active,
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button[aria-pressed="true"] {
+      border: 0;
+      background: var(--a11y-yellow);
+      color: var(--a11y-ink);
+      font-weight: 800;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 0.2em;
+    }
+
+    body[data-visual-mode="accessible"] .portfolio-topic,
+    body[data-visual-mode="accessible"] .back-to-top,
+    body[data-visual-mode="accessible"] #header .visual-mode-toggle {
+      border: 0;
+      background: var(--a11y-yellow);
+      color: var(--a11y-ink);
+      font-weight: 800;
+    }
+
+    body[data-visual-mode="accessible"] .portfolio .portfolio-info,
+    body[data-visual-mode="accessible"] .portfolio .portfolio-item:focus-within .portfolio-info {
+      background: rgba(27, 27, 27, 0.96);
+    }
+
+    body[data-visual-mode="accessible"] .portfolio .portfolio-item:focus-within .portfolio-info,
+    body[data-visual-mode="accessible"] .portfolio .portfolio-item:hover .portfolio-info { opacity: 1; }
+
+    body[data-visual-mode="accessible"] .portfolio .portfolio-info h4,
+    body[data-visual-mode="accessible"] .portfolio .portfolio-info p,
+    body[data-visual-mode="accessible"] .portfolio .portfolio-info i { color: #fff; }
+
+    body[data-visual-mode="accessible"] #contact a,
+    body[data-visual-mode="accessible"] .contact a { color: #996600; font-weight: 800 }
+
+    body[data-visual-mode="accessible"] :focus { outline: none; }
+    body[data-visual-mode="accessible"] :focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+
+    body[data-visual-mode="accessible"] a:focus-visible,
+    body[data-visual-mode="accessible"] button:focus-visible,
+    body[data-visual-mode="accessible"] [tabindex]:focus-visible {
+      background: var(--a11y-ink);
+      color: #fff;
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 0.2em;
+    }
+
+    body[data-visual-mode="accessible"] #header a:focus-visible,
+    body[data-visual-mode="accessible"] #header .visual-mode-toggle:focus-visible {
+      background: var(--a11y-yellow);
+      color: var(--a11y-ink);
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 0.2em;
+    }
+
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button:focus-visible,
+    body[data-visual-mode="accessible"] #contact a:focus-visible,
+    body[data-visual-mode="accessible"] .contact a:focus-visible,
+    body[data-visual-mode="accessible"] .back-to-top:focus-visible {
+      background: var(--a11y-ink);
+      color: #fff;
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 0.2em;
+    }
+
+    body[data-visual-mode="accessible"] .portfolio .portfolio-item a:focus-visible + .portfolio-info,
+    body[data-visual-mode="accessible"] .portfolio .portfolio-item:focus-within .portfolio-info {
+      display: block;
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body[data-visual-mode="accessible"] *,
+      body[data-visual-mode="accessible"] *::before,
+      body[data-visual-mode="accessible"] *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+  <style>
+    /* Accessibility Mode button system: rounded, yellow-outline controls. */
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button,
+    body[data-visual-mode="accessible"] #header .visual-mode-toggle,
+    body[data-visual-mode="accessible"] #contact a,
+    body[data-visual-mode="accessible"] .contact a,
+    body[data-visual-mode="accessible"] .back-to-top {
+      border: 2px solid #ffb727;
+      background: transparent;
+      box-shadow: none;
+      text-decoration: none;
+    }
+
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button {
+      color: #1b1b1b;
+    }
+
+    body[data-visual-mode="accessible"] #header .visual-mode-toggle {
+      color: #ffb727;
+    }
+
+    body[data-visual-mode="accessible"] .back-to-top {
+      color: #1b1b1b;
+    }
+
+    body[data-visual-mode="accessible"] #contact a,
+    body[data-visual-mode="accessible"] .contact a {
+      display: inline-flex;
+      align-items: center;
+      color: #1b1b1b;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button:hover,
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button.filter-active,
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button[aria-pressed="true"],
+    body[data-visual-mode="accessible"] #header .visual-mode-toggle:hover,
+    body[data-visual-mode="accessible"] #contact a:hover,
+    body[data-visual-mode="accessible"] .contact a:hover,
+    body[data-visual-mode="accessible"] .back-to-top:hover {
+      border-color: #ffb727;
+      background: #ffb727;
+      color: #1b1b1b;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    body[data-visual-mode="accessible"] .portfolio #portfolio-flters button:focus-visible,
+    body[data-visual-mode="accessible"] #header .visual-mode-toggle:focus-visible,
+    body[data-visual-mode="accessible"] #contact a:focus-visible,
+    body[data-visual-mode="accessible"] .contact a:focus-visible,
+    body[data-visual-mode="accessible"] .back-to-top:focus-visible {
+      border-color: #1b1b1b;
+      background: #1b1b1b;
+      color: #fff;
+      text-decoration: none;
+    }
+  </style>
+  <style>
+    #header .navbar a:hover,
+    #header .navbar a.active {
+      color: #ffb727;
+    }
+  </style>
+  <style>
+    #contact .contact-panels {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+
+    #contact .contact-panels > .contact-panel {
+      display: center;
+      max-width: none;
+      min-width: 0;
+      min-height: 13.5rem;
+      margin: 1rem;
+      padding: 2rem;
+      box-sizing: border-box;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    }
+
+    #contact .contact-panels > .contact-panel:first-child { background: #fff; }
+    #contact .contact-panels > .contact-email-panel { background: #fff1cc; }
+
+    #contact .contact-panels > .contact-panel > .info-box {
+      width: auto;
+      height: auto;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+#contact .contact-panels > .contact-panel:first-child > .info-box {
+  display: block;
+  width: auto;
+  height: auto;
+  align-self: center;
+}
+  </style>
+<style>
+  #header .visual-mode-toggle {
+    border-radius: 0.4rem;
+  }
+
+  /* Homepage resume CTA */
+  #about a[href*="resume"],
+  #about a[href$=".pdf"],
+  .resume-button,
+  .view-resume {
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-width: 2px;
+  }
+
+  /* Portfolio filters */
+  #portfolio #portfolio-flters button {
+    border: 1px solid transparent;
+    border-radius: 0.4rem;
+  }
+
+  #portfolio #portfolio-flters button:hover {
+    border-color: #ffb727;
+  }
+
+  #portfolio #portfolio-flters button.filter-active,
+  #portfolio #portfolio-flters button[aria-pressed="true"] {
+    background: #ffb727;
+    border-color: #ffb727;
+  }
+</style>
 </head>
 
+<style>
+  /* Resume call-to-action */
+  .resume-button,
+  .resume-link,
+  #resume .btn,
+  #resume .button,
+  #resume a[href*="resume" i]:not(.nav-link) {
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-width: 2px;
+  }
+
+  /* Portfolio filter states */
+  #portfolio #portfolio-flters button {
+    border: 3px solid transparent;
+    border-radius: 0.4rem;
+    background: transparent;
+  }
+
+  #portfolio #portfolio-flters button:hover {
+    border-color: #ffb727;
+    background: transparent;
+  }
+
+  #portfolio #portfolio-flters button.filter-active,
+  #portfolio #portfolio-flters button[aria-pressed="true"] {
+    border-color: #ffb727;
+    border-radius: 0.4rem;
+    background: #ffb727;
+  }
+</style>
+<style>
+  /* Hero scroll control: target the focusable link, not the icon inside it. */
+  #header > .container > a.scrollto:focus,
+  #header > .container > a.scrollto:focus-visible,
+  #header .scroll-down:focus,
+  #header .scroll-down:focus-visible,
+  #header .btn-scroll:focus,
+  #header .btn-scroll:focus-visible,
+  #header a:has([class*="chevron-down"]):focus,
+  #header a:has([class*="chevron-down"]):focus-visible,
+  #header a:has([class*="chevrons-down"]):focus,
+  #header a:has([class*="chevrons-down"]):focus-visible {
+    border-radius: 0.4rem;
+    outline: 2px solid #ffb727;
+    outline-offset: 4px;
+  }
+
+  #portfolio #portfolio-flters button:focus-visible {
+    background: #ffb727;
+    color: #020202;
+
+    outline: 3px solid #1b1b1b; 
+    outline-offset: 3px;
+  }
+
+  /* Keep the hero chevron visually unchanged while making its keyboard focus clear. */
+  a:has(.bi-chevron-down):focus-visible,
+  a:has(.bx-chevron-down):focus-visible,
+  .scroll-down:focus-visible,
+  .btn-scroll:focus-visible {
+    outline: 2px solid #ffb727;
+    outline-offset: 4px;
+  }
+
+  /* The visual-mode toggle follows the same keyboard focus treatment as navigation links. */
+  body[data-visual-mode="accessible"] #header .navbar a:focus-visible,
+  body[data-visual-mode="accessible"] #header .visual-mode-toggle:focus-visible {
+    background: #ffb727;
+    color: #1b1b1b;
+    box-shadow: 0 0 0 3px rgba(255, 183, 39, 0.45);
+    outline: none;
+  }
+</style>
 <body>
+  <script>
+    try {
+      if (window.localStorage.getItem('portfolio-visual-mode') === 'accessible') {
+        document.body.dataset.visualMode = 'accessible';
+      }
+    } catch (error) {}
+  </script>
 
   <a class="skip-link" href="#main">Skip to main content</a>
 
@@ -55,6 +408,7 @@
         <!-- <li><a href="../index.html">Old Version</a></li> -->
         <li><a href="../portfolio/#contact">Contact</a></li>
 
+        <li><a id="visual-mode-toggle" class="visual-mode-toggle" href="#accessibility-mode" role="button" aria-pressed="false" aria-label="Enable accessibility mode"><span>Accessibility Mode (WCAG 2.1 AA)</span></a></li>
       </ul>
     </nav><!-- .nav-menu -->
 
@@ -492,7 +846,6 @@ research findings into information architecture, user flows, and high-fidelity p
             <div class="portfolio-info">
               <h4>Illustrations</h4>
               <p>FanArt/Commission</p>
-              <a href="../portfolio/assets/img/portfolio/avator/portfolio_avator.JPG" data-gall="portfolioGallery" class="venobox preview-link" title="Other 1"><i class="bx bx-plus"></i></a>
               <a href="../portfolio/projects/avator/" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
             </div>
           </div>
@@ -502,7 +855,6 @@ research findings into information architecture, user flows, and high-fidelity p
             <div class="portfolio-info">
               <h4>Project - VR Bo Bing</h4>
               <p>AR/VR Design</p>
-              <!-- <a href="../assets/img/portfolio/ios/portfolio_ios.png" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a> -->
               <a href="../portfolio/projects/bobing/" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
             </div>
           </div>
@@ -628,45 +980,23 @@ research findings into information architecture, user flows, and high-fidelity p
           <p>If you enjoy my work or have any suggestion, don't hesitate to reach out me!</p>
         </div>
 
-        <div class="row">
-
-          <div class="col-lg-6">
-
-            <div class="row">
-              <div class="col-md-12">
-                <div class="info-box">
-                  <i class="bx bx-share-alt"></i>
-                  <h3>Social Profiles</h3>
-                  <div class="social-links">
-                    <a href="https://zhitianling.lofter.com/" aria-label="Qianya Lin on Lofter"><span class="icon iconfont icon-lofter" aria-hidden="true"></span></a>
-                    <a href="https://github.com/EnyaLQY" aria-label="Qianya Lin on GitHub"><span class="icon iconfont icon-github" aria-hidden="true"></span></a>
-                    <a href="https://www.linkedin.com/in/qianya-lin-enya/" class="linkedin" aria-label="Qianya Lin on LinkedIn"><i class="icofont-linkedin" aria-hidden="true"></i></a>
-                  </div>
+       <div class="row contact-panels">
+          <section class="col-md-6 contact-panel" aria-labelledby="social-profiles-title">
+              <div class="info-box">
+                <i class="bx bx-share-alt" aria-hidden="true"></i>
+                <h3 id="social-profiles-title">Social Profiles</h3>
+                <div class="social-links" aria-label="Social profiles">
+                  <a href="https://github.com/EnyaLQY" aria-label="Qianya Lin on GitHub"><span class="icon iconfont icon-github" aria-hidden="true"></span></a>
+                  <a href="https://www.linkedin.com/in/qianya-lin-enya/" class="linkedin" aria-label="Qianya Lin on LinkedIn"><i class="icofont-linkedin" aria-hidden="true"></i></a>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="info-box mt-4">
-                  <i class="bx bx-envelope"></i>
-                  <h3>Email Me</h3>
-                  <p><a href="mailto:enya.linqianya@gmail.com">enya.linqianya@gmail.com</a></p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="info-box mt-4">
-                  <i class="bx bx-plus"></i>
-                  <h3>Available for contact</h3>
-                  <p>Please use the email link to start a conversation.</p>
-                </div>
-              </div>
-            </div>
+          </section>
 
-          </div>
-
-          <div class="col-lg-6 contact-email-panel">
-            <h3>Let’s connect</h3>
+          <section class="col-md-6 contact-email-panel contact-panel" aria-labelledby="contact-email-title">
+            <h3 id="contact-email-title">Let’s connect</h3>
             <p>For project opportunities, collaboration, or questions about my work, please email me directly.</p>
             <a class="contact-email-link" href="mailto:enya.linqianya@gmail.com">Email Qianya</a>
-          </div>
+          </section>
 
         </div>
 
@@ -680,13 +1010,6 @@ research findings into information architecture, user flows, and high-fidelity p
     <div class="container">
       <h3>Qianya Lin</h3>
       <p></p>
-      <!-- <div class="social-links">
-        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-      </div> -->
       <div class="copyright">
         &copy; Copyright <strong><span>Qianya Lin</span></strong>. Design revised by Qianya Lin. All Rights Reserved
       </div>
@@ -716,6 +1039,43 @@ research findings into information architecture, user flows, and high-fidelity p
   <!-- Template Main JS File -->
   <script src="../portfolio/assets/js/main.js"></script>
 
+  <script>
+    (function () {
+      var storageKey = 'portfolio-visual-mode';
+      var button = document.getElementById('visual-mode-toggle');
+      if (!button) return;
+
+      function applyMode(mode, persist) {
+        var accessible = mode === 'accessible';
+        if (accessible) document.body.dataset.visualMode = 'accessible';
+        else delete document.body.dataset.visualMode;
+
+        button.setAttribute('aria-pressed', String(accessible));
+        button.setAttribute('aria-label', accessible ? 'Return to original visual mode' : 'Enable accessibility mode');
+        button.querySelector('span').textContent = accessible ? 'Back to Original' : 'Accessibility Mode (WCAG 2.1 AA)';
+
+        if (persist) {
+          try { window.localStorage.setItem(storageKey, accessible ? 'accessible' : 'original'); } catch (error) {}
+        }
+      }
+
+      applyMode(document.body.dataset.visualMode === 'accessible' ? 'accessible' : 'original', false);
+      function toggleMode() {
+        applyMode(document.body.dataset.visualMode === 'accessible' ? 'original' : 'accessible', true);
+      }
+
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        toggleMode();
+      });
+      button.addEventListener('keydown', function (event) {
+        if (event.key === ' ') {
+          event.preventDefault();
+          toggleMode();
+        }
+      });
+    }());
+  </script>
 </body>
 
 </html>
